@@ -20,6 +20,7 @@ import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
 import { Route as AuthenticatedEePlanRouteImport } from './routes/_authenticated/ee-plan'
+import { Route as AuthenticatedEvidenceRouteImport } from './routes/_authenticated/evidence'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
 import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
@@ -85,6 +86,11 @@ const AuthenticatedDocumentRoute = AuthenticatedDocumentRouteImport.update({
 const AuthenticatedEePlanRoute = AuthenticatedEePlanRouteImport.update({
   id: '/ee-plan',
   path: '/ee-plan',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEvidenceRoute = AuthenticatedEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
@@ -161,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
   '/ee-plan': typeof AuthenticatedEePlanRoute
+  '/evidence': typeof AuthenticatedEvidenceRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/review': typeof AuthenticatedReviewRoute
@@ -185,6 +192,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
   '/ee-plan': typeof AuthenticatedEePlanRoute
+  '/evidence': typeof AuthenticatedEvidenceRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/review': typeof AuthenticatedReviewRoute
@@ -211,6 +219,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
   '/_authenticated/ee-plan': typeof AuthenticatedEePlanRoute
+  '/_authenticated/evidence': typeof AuthenticatedEvidenceRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
   '/_authenticated/review': typeof AuthenticatedReviewRoute
@@ -237,6 +246,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/document'
     | '/ee-plan'
+    | '/evidence'
     | '/plan'
     | '/progress'
     | '/review'
@@ -261,6 +271,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/document'
     | '/ee-plan'
+    | '/evidence'
     | '/plan'
     | '/progress'
     | '/review'
@@ -286,6 +297,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/document'
     | '/_authenticated/ee-plan'
+    | '/_authenticated/evidence'
     | '/_authenticated/plan'
     | '/_authenticated/progress'
     | '/_authenticated/review'
@@ -394,6 +406,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEePlanRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/evidence': {
+      id: '/_authenticated/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof AuthenticatedEvidenceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/plan': {
       id: '/_authenticated/plan'
       path: '/plan'
@@ -489,6 +508,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
   AuthenticatedEePlanRoute: typeof AuthenticatedEePlanRoute
+  AuthenticatedEvidenceRoute: typeof AuthenticatedEvidenceRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
   AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
@@ -503,6 +523,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
   AuthenticatedEePlanRoute: AuthenticatedEePlanRoute,
+  AuthenticatedEvidenceRoute: AuthenticatedEvidenceRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
   AuthenticatedReviewRoute: AuthenticatedReviewRoute,

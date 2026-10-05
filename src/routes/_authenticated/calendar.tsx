@@ -35,6 +35,7 @@ function CalendarPage() {
   const qc = useQueryClient();
   const [err, setErr] = useState("");
   const actions = useQuery({ queryKey: ["cm-actions"], queryFn: () => must(supabase.from("committee_actions").select("*").order("due_date", { nullsFirst: true })) });
+  const measures = useQuery({ queryKey: ["all-measures-cal"], queryFn: () => must(supabase.from("plan_measures").select("id,measure,owner,due_date,status").neq("status", "Done").order("due_date", { nullsFirst: false })) });
   const members = useQuery({ queryKey: ["cm-members"], queryFn: () => must(supabase.from("committee_members").select("id,name")) });
   const update = useMutation({
     mutationFn: (v: { id: string; due_date?: string | null; status?: Status }) => { const { id, ...rest } = v; return must(supabase.from("committee_actions").update(rest).eq("id", id)); },
@@ -57,7 +58,7 @@ function CalendarPage() {
       <div className="mx-auto max-w-[1100px]">
         <Link to="/dashboard" className="text-[13px] text-muted hover:text-foreground">← Dashboard</Link>
         <h1 className="mt-4 font-[Fraunces] text-[40px] leading-tight">Compliance Calendar</h1>
-        <p className="mt-2 max-w-2xl text-[15px] text-muted">Every committee action with its deadline and status. A reminder email goes to sdm@ddhs.co.za each morning for actions that are overdue or due within 3 days. Add actions in the <Link to="/committee" className="text-primary hover:underline">Committee tracker</Link>.</p>
+        <p className="mt-2 max-w-2xl text-[15px] text-muted">Every committee action with its deadline and status. A reminder email goes to sdm@ddhs.co.za each morning for committee actions and EE plan measures that are overdue or due within 3 days. Add actions in the <Link to="/committee" className="text-primary hover:underline">Committee tracker</Link>.</p>
         {err && <p role="alert" className="mt-4 text-[13px] text-destructive">{err}</p>}
 
         <section className={`${card} mt-8 flex flex-wrap items-center justify-between gap-4`}>
@@ -87,6 +88,13 @@ function CalendarPage() {
             </ul>
           </section>
         ))}
+        {!!measures.data?.length && (
+          <section className={`${card} mt-6`} aria-label="EE plan measures">
+            <div className="flex items-center justify-between"><p className={mono}>EE plan measures · {measures.data.length} open</p><Link to="/ee-plan" className="text-[13px] text-primary hover:underline">Edit in plan →</Link></div>
+            <ul className="mt-4 divide-y divide-line/40">{measures.data.map((m) => { const d = m.due_date ? daysTo(m.due_date) : null; return (
+              <li key={m.id} className="flex items-center justify-between gap-3 py-3 text-[14px]"><span>{m.measure}<span className="block text-[12px] text-muted">{m.owner ?? "No owner"} · {m.status}</span></span><span className={`${mono} ${d !== null && d < 0 ? "text-destructive" : ""}`}>{m.due_date ?? "No date"}{d !== null ? ` · ${d < 0 ? `${-d}d late` : `${d}d`}` : ""}</span></li>); })}</ul>
+          </section>
+        )}
         {actions.isSuccess && !acts.length && <p className="mt-6 text-[14px] text-muted">No committee actions yet. Add some in the Committee tracker.</p>}
       </div>
     </main>
