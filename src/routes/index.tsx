@@ -48,6 +48,9 @@ function Index() {
             <Link to="/plan" className="transition-colors hover:text-foreground">
               Planner
             </Link>
+            <Link to="/progress" className="transition-colors hover:text-foreground">
+              Progress
+            </Link>
             <a href="#demo" className="transition-colors hover:text-foreground">
               Contact
             </a>

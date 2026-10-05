@@ -121,6 +121,9 @@ function PlanPage() {
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{out}</ReactMarkdown>
               </div>
             )}
+            {out && !busy && (
+              <Link to="/progress" onClick={() => sessionStorage.setItem("ddhs-plan", out)} className="mt-6 inline-block rounded-full bg-primary px-5 py-2.5 text-[13px] font-medium text-primary-foreground">Track progress &amp; risks →</Link>
+            )}
             <p className="mt-6 border-t border-line/60 pt-3 text-[11px] text-muted">Guidance only — not legal advice.</p>
           </section>
         </div>
