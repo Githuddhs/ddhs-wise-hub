@@ -45,6 +45,9 @@ function Index() {
             <Link to="/assess" className="transition-colors hover:text-foreground">
               Gap Assessment
             </Link>
+            <Link to="/plan" className="transition-colors hover:text-foreground">
+              Planner
+            </Link>
             <a href="#demo" className="transition-colors hover:text-foreground">
               Contact
             </a>
