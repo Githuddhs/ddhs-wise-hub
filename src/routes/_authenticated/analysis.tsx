@@ -79,7 +79,7 @@ function AnalysisPage() {
     return [`Sector: ${sector || "Not specified"}. Reporting period ${period.from} to ${period.to}. Active employees ${r.activeCount}; with disability ${r.disabilityCount} (${disPct}%${rep.disabilityTarget !== undefined ? ` vs target ${rep.disabilityTarget}%` : ""}).`,
       "Column codes: A African, C Coloured, I Indian, W White, M male, F female, FN foreign national.",
       g("Workforce profile", r.profile), g("Employees with disabilities", r.disability), g("Hires", r.hires), g("Promotions", r.promotions), g("Terminations", r.terminations),
-      "Representation by level (designated male %, designated female %, designated total % vs target total %, gap pts):\n" + rep.levels.map((l) => `${l.level}: staff ${l.total}; male ${l.male}%${l.target ? `/${l.target.male}%` : ""}; female ${l.female}%${l.target ? `/${l.target.female}%` : ""}; total ${l.designated}%${l.target ? `/${l.target.total}%; gap ${l.gap}` : " (no target)"}`).join("\n"),
+      "Representation by level (designated = A/C/I men + all women + white men with disabilities; designated male %, designated female %, designated total % vs target total %, gap pts):\n" + rep.levels.map((l) => `${l.level}: staff ${l.total}; male ${l.male}%${l.target ? `/${l.target.male}%` : ""}; female ${l.female}%${l.target ? `/${l.target.female}%` : ""}; total ${l.designated}%${l.target ? `/${l.target.total}%; gap ${l.gap}` : " (no target)"}`).join("\n"),
       "Whole workforce vs national EAP (indicative, approximate): " + eapCompare.map((x) => `${x.c} ${x.pct}% vs ${x.eap}%`).join("; ")].join("\n\n");
   }
   async function explain() {
