@@ -9,4 +9,6 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Design: single "Legislative glass" direction — Fraunces display / Inter body / JetBrains Mono data labels, cool blue-teal oklch tokens in src/styles.css. Landing is a one-page route with hash anchors; any new page must reuse these tokens, not hardcode colors.
+# Agent rules
+- AI calls go through a streaming server route (src/routes/api/assess.ts) on the Lovable AI Gateway Responses API; keeps the key server-side and streams NDJSON to the page.
+- Demo requests are stored in a Cloud table with insert-only public access; nobody can read submissions from the browser.

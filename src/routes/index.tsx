@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { DemoForm } from "@/components/DemoForm";
 import glassPanels from "@/assets/glass-panels.jpg";
 
 export const Route = createFileRoute("/")({
@@ -41,6 +42,9 @@ function Index() {
             <a href="#trust" className="transition-colors hover:text-foreground">
               Trust
             </a>
+            <Link to="/assess" className="transition-colors hover:text-foreground">
+              Gap Assessment
+            </Link>
             <a href="#demo" className="transition-colors hover:text-foreground">
               Contact
             </a>
@@ -77,12 +81,12 @@ function Index() {
               >
                 Request a demo
               </a>
-              <a
-                href="#capabilities"
+              <Link
+                to="/assess"
                 className="rounded-full border border-line/70 bg-glass/50 px-6 py-3 text-[14px] font-medium backdrop-blur-md transition-colors hover:bg-glass/80"
               >
-                See the platform
-              </a>
+                Try the free gap assessment
+              </Link>
             </div>
             <div className="rise mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-[min(1vw,14px)] border border-line/60 bg-line/60 backdrop-blur-md [animation-delay:280ms]">
               <div className="bg-glass/70 px-4 py-4">
@@ -263,34 +267,12 @@ function Index() {
                 A 30-minute walkthrough with our compliance team — bring your workforce data, leave
                 with a live transformation view.
               </p>
-              <a
-                href="mailto:compliance@ddhs.co.za"
-                className="mt-7 inline-block rounded-full bg-primary px-7 py-3.5 text-[14px] font-medium text-primary-foreground ring-1 ring-black/5 transition-colors hover:bg-primary/90"
-              >
-                Request a demo
-              </a>
+              <p className="mt-6 text-[13px] text-muted">
+                Prefer email? <a href="mailto:compliance@ddhs.co.za" className="underline">compliance@ddhs.co.za</a>
+              </p>
             </div>
-            <div className="rise rounded-[min(1vw,16px)] border border-line/60 bg-panel/50 p-5 [animation-delay:120ms]">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <div className="font-[JetBrains_Mono] text-[10px] uppercase tracking-[0.16em] text-muted">
-                    Designated employer
-                  </div>
-                  <div className="mt-1 font-[Fraunces] text-[18px]">Yes · 50+ staff</div>
-                </div>
-                <div>
-                  <div className="font-[JetBrains_Mono] text-[10px] uppercase tracking-[0.16em] text-muted">
-                    Head office
-                  </div>
-                  <div className="mt-1 font-[Fraunces] text-[18px]">Sandton, Gauteng</div>
-                </div>
-                <div className="col-span-2 border-t border-line/60 pt-3">
-                  <div className="font-[JetBrains_Mono] text-[10px] uppercase tracking-[0.16em] text-muted">
-                    Compliance team contact
-                  </div>
-                  <div className="mt-1 font-[Fraunces] text-[18px]">compliance@ddhs.co.za</div>
-                </div>
-              </div>
+            <div className="rise [animation-delay:120ms]">
+              <DemoForm />
             </div>
           </div>
         </div>
