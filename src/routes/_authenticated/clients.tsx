@@ -114,8 +114,14 @@ function Clients() {
     } catch (e) { onError(e as Error); }
   }
 
+  const [sort, setSort] = useState<"az" | "newest">("az");
   const list = rows.data ?? [];
-  const registered = list.filter((r) => r.registered);
+  const sorted = [...list].sort((a, b) =>
+    sort === "az"
+      ? (a.company || a.email || "").localeCompare(b.company || b.email || "", "en", { sensitivity: "base" })
+      : b.created_at.localeCompare(a.created_at),
+  );
+  const registered = sorted.filter((r) => r.registered);
   const others = list.filter((r) => !r.registered);
 
   return (
