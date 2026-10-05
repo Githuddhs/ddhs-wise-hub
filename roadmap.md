@@ -8,5 +8,5 @@
 - [x] Upload drafted EE Plan -> AI Section 20 compliance review page
 - [x] Build in s15A sector targets (GN 6124, 15 Apr 2025)
 - [x] Plan Review: compare draft against chosen sector's s15A job-level targets
-- [ ] Sign up / sign in (email + Google, profiles, tools gated)
-- [ ] EE committee page: members, meetings, action items, progress tracker (per user)
+- [x] Sign up / sign in (email + Google, profiles, tools gated)
+- [x] EE committee page (members, meetings, actions, progress)
