@@ -1,3 +1,4 @@
+import { targetsText } from "@/lib/sector-targets";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
@@ -59,7 +60,7 @@ export const Route = createFileRoute("/api/plan")({
           },
         });
 
-        const prompt = `Assessment results and planning inputs (JSON):\n${JSON.stringify(input, null, 2)}`;
+        const prompt = `${targetsText(input.sector)}\n\nAssessment results and planning inputs (JSON):\n${JSON.stringify(input, null, 2)}`;
         const result = streamText({
           model: openai.responses("openai/gpt-6-astra"),
           system: SYSTEM,

@@ -1,3 +1,4 @@
+import { SECTOR_NAMES } from "@/lib/sector-targets";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -17,12 +18,12 @@ export const Route = createFileRoute("/plan")({
   component: PlanPage,
 });
 
-const SECTORS = ["Agriculture, forestry & fishing", "Mining & quarrying", "Manufacturing", "Electricity, gas & water", "Construction", "Wholesale & retail trade", "Transport, storage & communication", "Finance & business services", "Community, social & personal services", "Public sector", "Accommodation & food services", "Information & communication", "Other"];
+const SECTORS = [...SECTOR_NAMES, "Other / not sure"];
 const field = "w-full rounded-lg border border-line/70 bg-glass/60 px-3 py-2 text-[14px] outline-none focus:ring-2 focus:ring-primary/40";
 const label = "mb-1.5 block font-[JetBrains_Mono] text-[10px] uppercase tracking-[0.16em] text-muted";
 
 function PlanPage() {
-  const [f, setF] = useState({ assessment: "", sector: SECTORS[7], employees: "", startDate: "", submissionDate: "", planEnd: "", priorities: "" });
+  const [f, setF] = useState({ assessment: "", sector: SECTORS[10], employees: "", startDate: "", submissionDate: "", planEnd: "", priorities: "" });
   const [out, setOut] = useState("");
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
