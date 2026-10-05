@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
-export const Route = createFileRoute("/assess")({
+export const Route = createFileRoute("/_authenticated/assess")({
   head: () => ({
     meta: [
       { title: "EE Gap Assessment — DDHS Equity Intelligence" },

@@ -4,7 +4,7 @@ import { SECTOR_NAMES } from "@/lib/sector-targets";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export const Route = createFileRoute("/review")({
+export const Route = createFileRoute("/_authenticated/review")({
   head: () => ({
     meta: [
       { title: "EE Plan Compliance Review — DDHS Equity Intelligence" },
