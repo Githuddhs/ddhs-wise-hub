@@ -22,6 +22,13 @@
       "when": 1791185362982,
       "tag": "0002_ee_committee",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791197228845,
+      "tag": "0003_equity_dashboard",
+      "breakpoints": true
     }
   ]
 }

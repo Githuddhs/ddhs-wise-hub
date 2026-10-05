@@ -119,6 +119,30 @@ export type Database = {
         }
         Relationships: []
       }
+      compliance_deadlines: {
+        Row: {
+          created_at: string
+          due_date: string
+          id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          due_date: string
+          id?: string
+          title: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          due_date?: string
+          id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       demo_requests: {
         Row: {
           company: string
@@ -182,6 +206,54 @@ export type Database = {
           id?: string
           job_title?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      saved_results: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          title: string
+          tool: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          title: string
+          tool: string
+          user_id?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          title?: string
+          tool?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      workforce_profiles: {
+        Row: {
+          counts: Json
+          sector: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          counts?: Json
+          sector?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          counts?: Json
+          sector?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
