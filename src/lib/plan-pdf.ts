@@ -1,5 +1,5 @@
 // Builds a branded PDF from the planner's Markdown output. Loaded on demand (browser only).
-type Meta = { sector: string; employees: string; startDate: string; submissionDate: string; planEnd: string };
+type Meta = { sector?: string; employees: string; startDate: string; submissionDate: string; planEnd: string };
 
 // Brand colours mirror the Legislative glass tokens (PDF cannot read CSS variables).
 const INK: [number, number, number] = [12, 23, 38];
@@ -30,7 +30,7 @@ export async function exportPlanPdf(markdown: string, meta: Meta) {
   doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.text("DDHS EQUITY INTELLIGENCE", M, 48);
   doc.setFont("times", "bold"); doc.setFontSize(26); doc.text("Employment Equity Implementation Plan", M, 88);
   doc.setFont("helvetica", "normal"); doc.setFontSize(10);
-  doc.text(clean(`${meta.sector}  |  ${meta.employees} employees  |  ${meta.startDate} to ${meta.planEnd}  |  Next EEA2/EEA4: ${meta.submissionDate}`), M, 116);
+  doc.text(clean(`${meta.sector ?? ""}  |  ${meta.employees} employees  |  ${meta.startDate} to ${meta.planEnd}  |  Next EEA2/EEA4: ${meta.submissionDate}`), M, 116);
   doc.text(`Generated ${new Date().toISOString().slice(0, 10)}`, M, 132);
   y = 186;
 
