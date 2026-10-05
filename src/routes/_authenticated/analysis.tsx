@@ -60,7 +60,7 @@ function AnalysisPage() {
   const saveSector = useMutation({ mutationFn: (s: string) => must(supabase.from("workforce_profiles").upsert({ sector: s || null, updated_at: new Date().toISOString() })), onSuccess: () => qc.invalidateQueries({ queryKey: ["wf"] }) });
 
   const r = useMemo(() => eea12(emps.data ?? [], period.from, period.to), [emps.data, period]);
-  const rep = useMemo(() => representation(r.profile, sector || null), [r, sector]);
+  const rep = useMemo(() => representation(r.profile, sector || null, r.disability), [r, sector]);
   const disPct = r.activeCount ? Math.round((r.disabilityCount / r.activeCount) * 1000) / 10 : 0;
   const eapCompare = useMemo(() => {
     const tot = r.activeCount - ALL_LEVELS.reduce((s, [l]) => s + r.profile[l].FNM + r.profile[l].FNF, 0);

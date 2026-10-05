@@ -98,7 +98,7 @@ function Dashboard() {
   const a = analyse(counts, sector || null);
   const empList = emps.data ?? [];
   const hasEmps = empList.length > 0;
-  const live = hasEmps ? representation(eea12(empList, "1900-01-01", new Date().toISOString().slice(0, 10)).profile, sector || null) : null;
+  const live = hasEmps ? (() => { const x = eea12(empList, "1900-01-01", new Date().toISOString().slice(0, 10)); return representation(x.profile, sector || null, x.disability); })() : null;
   const quality = hasEmps ? validate(empList) : null;
   const ms = measures.data ?? [];
   const tdy = new Date().toISOString().slice(0, 10);
