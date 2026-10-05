@@ -24,5 +24,6 @@
 - [x] DG review: pre-submission check of the EEA2/EEA4/EEA12/EEA13 pack
 - [ ] Clarify user's "@" message — waiting on user
 - [x] Billing: raise invoice, banking details, email + PDF, record EFT payment
-- [ ] Suggest subscription fees — pricing tiers for the platform
-- [ ] Clean up the invoice test client + test invoice rows
+- [x] Suggest subscription fees — tiers proposed (R1 450 / R2 950 / R4 950 monthly, ex VAT)
+- [x] Clean up the invoice test client + test invoice rows
+- [ ] Load suggested fees as register defaults + put the price list on the site — waiting on user's choice of tiers
