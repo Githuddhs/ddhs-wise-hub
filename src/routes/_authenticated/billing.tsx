@@ -32,6 +32,12 @@ function addDays(iso: string, n: number) {
 const monthName = () =>
   new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 
+const req = (s: string) => (
+  <>
+    {s} <span className="text-destructive">*</span>
+  </>
+);
+
 export const Route = createFileRoute("/_authenticated/billing")({
   head: () => ({
     meta: [
