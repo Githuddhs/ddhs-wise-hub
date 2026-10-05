@@ -3,3 +3,4 @@
 - [x] Demo-request form: business contact details, validation, saved + confirmation
 
 - [x] Export implementation plan as polished PDF (phases, milestones, owners, evidence, risks)
+- [x] Section 20 EE Plan document builder (/document), Word download
