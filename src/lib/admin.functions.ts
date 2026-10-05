@@ -89,7 +89,7 @@ export const createClientAccount = createServerFn({ method: "POST" })
       email: data.email,
       password: data.password,
       email_confirm: true,
-      data: { full_name: data.full_name, company: data.company, job_title: data.job_title ?? "" },
+      user_metadata: { full_name: data.full_name, company: data.company, job_title: data.job_title ?? "" },
     });
     if (error) throw new Error(error.message);
     const userId = made.user?.id;
