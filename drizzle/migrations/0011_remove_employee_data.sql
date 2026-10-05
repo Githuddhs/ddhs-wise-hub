@@ -1,0 +1,2 @@
+DELETE FROM public.employees WHERE user_id IN ('eda4d89d-c2e5-4937-96ab-528aeb835a89','090f0075-a70c-47a3-b48d-c4301c63cfcf');
+DELETE FROM public.import_batches WHERE user_id IN ('eda4d89d-c2e5-4937-96ab-528aeb835a89','090f0075-a70c-47a3-b48d-c4301c63cfcf');
