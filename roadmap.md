@@ -4,6 +4,6 @@
 
 - [x] Export implementation plan as polished PDF (phases, milestones, owners, evidence, risks)
 - [x] Section 20 EE Plan document builder (/document), Word download
-- [ ] Email notification to owner for each demo request
+- [ ] Email notification for demo requests — waiting on user email domain setup + recipient address
 - [x] Upload drafted EE Plan -> AI Section 20 compliance review page
-- [ ] Build in s15A sector targets (scope to confirm with user)
+- [ ] Build in s15A sector targets — waiting on user to supply official figures
