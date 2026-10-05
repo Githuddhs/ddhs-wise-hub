@@ -691,6 +691,8 @@ export type Database = {
           full_name: string | null
           id: string
           job_title: string | null
+          onboarded_at: string | null
+          sector: string | null
           updated_at: string
         }
         Insert: {
@@ -700,6 +702,8 @@ export type Database = {
           full_name?: string | null
           id: string
           job_title?: string | null
+          onboarded_at?: string | null
+          sector?: string | null
           updated_at?: string
         }
         Update: {
@@ -709,6 +713,8 @@ export type Database = {
           full_name?: string | null
           id?: string
           job_title?: string | null
+          onboarded_at?: string | null
+          sector?: string | null
           updated_at?: string
         }
         Relationships: []
