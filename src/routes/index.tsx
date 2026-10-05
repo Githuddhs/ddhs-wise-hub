@@ -57,6 +57,9 @@ function Index() {
             <Link to="/review" className="transition-colors hover:text-foreground">
               Plan Review
             </Link>
+            <Link to="/targets" className="transition-colors hover:text-foreground">
+              Sector Targets
+            </Link>
             <a href="#demo" className="transition-colors hover:text-foreground">
               Contact
             </a>

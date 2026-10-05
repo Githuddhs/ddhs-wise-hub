@@ -1,3 +1,4 @@
+import { SECTOR_NAMES } from "@/lib/sector-targets";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -23,13 +24,7 @@ export const Route = createFileRoute("/assess")({
   component: AssessPage,
 });
 
-const SECTORS = [
-  "Agriculture, forestry & fishing", "Mining & quarrying", "Manufacturing",
-  "Electricity, gas & water", "Construction", "Wholesale & retail trade",
-  "Transport, storage & communication", "Finance & business services",
-  "Community, social & personal services", "Public sector",
-  "Accommodation & food services", "Information & communication", "Other",
-];
+const SECTORS = [...SECTOR_NAMES, "Other / not sure"];
 const PROVINCES = ["Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State",
   "Limpopo", "Mpumalanga", "North West", "Northern Cape", "National / multiple"];
 const LEVELS = ["Top management", "Senior management", "Professionally qualified",
@@ -41,7 +36,7 @@ const label = "mb-1.5 block font-[JetBrains_Mono] text-[10px] uppercase tracking
 
 function AssessPage() {
   const [f, setF] = useState({
-    sector: SECTORS[7], province: PROVINCES[0], employees: "", designated: true,
+    sector: "Manufacturing", province: PROVINCES[0], employees: "", designated: true,
     demographics: "", planPeriod: "", eea2: "Unsure", committee: "Unsure",
     sectorTargets: "Unsure", barriers: "Unsure", planNotes: "",
   });
