@@ -139,7 +139,7 @@ function BillingPage() {
     onSuccess: (r) => {
       qc.invalidateQueries({ queryKey: ["invoices"] });
       setAmount("");
-      toast.success(`Invoice ${r.number} raised — ${zar(r.total)} ${r.vat_mode === "inclusive" ? "including VAT" : "including VAT"}`);
+      toast.success(`Invoice ${r.number} raised — ${zar(r.total)}${r.vat_mode === "none" ? " (no VAT)" : " including VAT"}`);
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "The invoice could not be raised"),
   });

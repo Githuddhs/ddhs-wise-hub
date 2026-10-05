@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as TargetsRouteImport } from './routes/targets'
 import { Route as AuthenticatedAnalysisRouteImport } from './routes/_authenticated/analysis'
 import { Route as AuthenticatedAssessRouteImport } from './routes/_authenticated/assess'
+import { Route as AuthenticatedBillingRouteImport } from './routes/_authenticated/billing'
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedClientsRouteImport } from './routes/_authenticated/clients'
 import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
@@ -65,6 +66,11 @@ const AuthenticatedAnalysisRoute = AuthenticatedAnalysisRouteImport.update({
 const AuthenticatedAssessRoute = AuthenticatedAssessRouteImport.update({
   id: '/assess',
   path: '/assess',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedBillingRoute = AuthenticatedBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
@@ -186,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/targets': typeof TargetsRoute
   '/analysis': typeof AuthenticatedAnalysisRoute
   '/assess': typeof AuthenticatedAssessRoute
+  '/billing': typeof AuthenticatedBillingRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/clients': typeof AuthenticatedClientsRoute
   '/committee': typeof AuthenticatedCommitteeRoute
@@ -215,6 +222,7 @@ export interface FileRoutesByTo {
   '/targets': typeof TargetsRoute
   '/analysis': typeof AuthenticatedAnalysisRoute
   '/assess': typeof AuthenticatedAssessRoute
+  '/billing': typeof AuthenticatedBillingRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/clients': typeof AuthenticatedClientsRoute
   '/committee': typeof AuthenticatedCommitteeRoute
@@ -246,6 +254,7 @@ export interface FileRoutesById {
   '/targets': typeof TargetsRoute
   '/_authenticated/analysis': typeof AuthenticatedAnalysisRoute
   '/_authenticated/assess': typeof AuthenticatedAssessRoute
+  '/_authenticated/billing': typeof AuthenticatedBillingRoute
   '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/clients': typeof AuthenticatedClientsRoute
   '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
@@ -277,6 +286,7 @@ export interface FileRouteTypes {
     | '/targets'
     | '/analysis'
     | '/assess'
+    | '/billing'
     | '/calendar'
     | '/clients'
     | '/committee'
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/targets'
     | '/analysis'
     | '/assess'
+    | '/billing'
     | '/calendar'
     | '/clients'
     | '/committee'
@@ -336,6 +347,7 @@ export interface FileRouteTypes {
     | '/targets'
     | '/_authenticated/analysis'
     | '/_authenticated/assess'
+    | '/_authenticated/billing'
     | '/_authenticated/calendar'
     | '/_authenticated/clients'
     | '/_authenticated/committee'
@@ -418,6 +430,13 @@ declare module '@tanstack/react-router' {
       path: '/assess'
       fullPath: '/assess'
       preLoaderRoute: typeof AuthenticatedAssessRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/billing': {
+      id: '/_authenticated/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof AuthenticatedBillingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/calendar': {
@@ -580,6 +599,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAnalysisRoute: typeof AuthenticatedAnalysisRoute
   AuthenticatedAssessRoute: typeof AuthenticatedAssessRoute
+  AuthenticatedBillingRoute: typeof AuthenticatedBillingRoute
   AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedClientsRoute: typeof AuthenticatedClientsRoute
   AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
@@ -598,6 +618,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAnalysisRoute: AuthenticatedAnalysisRoute,
   AuthenticatedAssessRoute: AuthenticatedAssessRoute,
+  AuthenticatedBillingRoute: AuthenticatedBillingRoute,
   AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedClientsRoute: AuthenticatedClientsRoute,
   AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
