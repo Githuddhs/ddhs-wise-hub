@@ -111,7 +111,10 @@ function PlanPage() {
             <div className="flex items-center justify-between">
               <h2 className="font-[Fraunces] text-[22px]">Implementation plan</h2>
               {out && !busy && (
-                <button onClick={() => { navigator.clipboard.writeText(out); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="rounded-full border border-line/70 px-3 py-1 text-[12px]">{copied ? "Copied" : "Copy"}</button>
+                <div className="flex gap-2">
+                  <button onClick={() => { navigator.clipboard.writeText(out); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="rounded-full border border-line/70 px-3 py-1 text-[12px]">{copied ? "Copied" : "Copy"}</button>
+                  <button onClick={async () => { const { exportPlanPdf } = await import("@/lib/plan-pdf"); await exportPlanPdf(out, f); }} className="rounded-full bg-primary px-3 py-1 text-[12px] font-medium text-primary-foreground">Download PDF</button>
+                </div>
               )}
             </div>
             {err && <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-[14px] text-destructive">{err}</p>}
