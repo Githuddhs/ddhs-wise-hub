@@ -20,4 +20,5 @@
 - [x] MVP: EEA13 structured plan + reminders
 - [x] MVP: evidence repository, decisions, audit trail
 - [x] MVP: executive dashboard upgrade
+- [x] Client onboarding: staff register, create login + email handover, open client account
 - [ ] Clarify user's "@" message — waiting on user
