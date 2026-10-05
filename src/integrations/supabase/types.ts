@@ -21,6 +21,7 @@ export type Database = {
           id: string
           meeting_id: string | null
           member_id: string | null
+          reminded_on: string | null
           status: string
           title: string
           user_id: string
@@ -31,6 +32,7 @@ export type Database = {
           id?: string
           meeting_id?: string | null
           member_id?: string | null
+          reminded_on?: string | null
           status?: string
           title: string
           user_id?: string
@@ -41,6 +43,7 @@ export type Database = {
           id?: string
           meeting_id?: string | null
           member_id?: string | null
+          reminded_on?: string | null
           status?: string
           title?: string
           user_id?: string
