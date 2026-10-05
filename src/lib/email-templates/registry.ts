@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react'
+import { DemoRequestEmail } from './demo-request'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -20,7 +21,7 @@ export interface TemplateEntry {
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'demo-request': {
     component: DemoRequestEmail,
-    subject: (data) => `Demo request — ${data.company}`,
+    subject: (data) => `Demo request — ${data['company']}`,
     displayName: 'Demo request notification',
     previewData: {
       full_name: 'Thandi Nkosi',
