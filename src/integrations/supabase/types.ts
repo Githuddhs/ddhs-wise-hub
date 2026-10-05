@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      demo_requests: {
+        Row: {
+          company: string
+          company_size: string
+          created_at: string
+          full_name: string
+          id: string
+          job_title: string | null
+          message: string | null
+          phone: string | null
+          popia_consent: boolean
+          work_email: string
+        }
+        Insert: {
+          company: string
+          company_size: string
+          created_at?: string
+          full_name: string
+          id?: string
+          job_title?: string | null
+          message?: string | null
+          phone?: string | null
+          popia_consent: boolean
+          work_email: string
+        }
+        Update: {
+          company?: string
+          company_size?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          job_title?: string | null
+          message?: string | null
+          phone?: string | null
+          popia_consent?: boolean
+          work_email?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
