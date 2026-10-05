@@ -262,7 +262,7 @@ function BillingPage() {
               <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <label className="block">
                   <span className="text-xs font-medium text-foreground">{req("Client")}</span>
-                  <select className={`${input} mt-1`} value={pick} onChange={(e) => chooseClient(e.target.value)}>
+                  <select className={`${input} mt-1`} value={pick} aria-label="Invoice client" onChange={(e) => chooseClient(e.target.value)}>
                     <option value="">Choose a client…</option>
                     {clientRows.map((c) => (
                       <option key={c.user_id} value={c.user_id}>
@@ -273,7 +273,7 @@ function BillingPage() {
                 </label>
                 <label className="block">
                   <span className="text-xs font-medium text-foreground">{req("Billing")}</span>
-                  <select className={`${input} mt-1`} value={cycle} onChange={(e) => chooseCycle(e.target.value as "monthly" | "annual")}>
+                  <select className={`${input} mt-1`} value={cycle} aria-label="Billing period" onChange={(e) => chooseCycle(e.target.value as "monthly" | "annual")}>
                     <option value="monthly">Monthly subscription</option>
                     <option value="annual">Annual subscription</option>
                   </select>
@@ -285,25 +285,25 @@ function BillingPage() {
                     type="number"
                     min="0"
                     step="0.01"
-                    placeholder="0.00"
+                    placeholder="0.00" aria-label="Amount"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                   />
                 </label>
                 <label className="block sm:col-span-2">
                   <span className="text-xs font-medium text-foreground">{req("Description")}</span>
-                  <input className={`${input} mt-1`} value={desc} onChange={(e) => setDesc(e.target.value)} />
+                  <input className={`${input} mt-1`} value={desc} aria-label="Description" onChange={(e) => setDesc(e.target.value)} />
                 </label>
                 <label className="block">
                   <span className="text-xs font-medium text-foreground">Period</span>
-                  <input className={`${input} mt-1`} value={period} onChange={(e) => setPeriod(e.target.value)} />
+                  <input className={`${input} mt-1`} value={period} aria-label="Period" onChange={(e) => setPeriod(e.target.value)} />
                 </label>
                 <label className="block">
                   <span className="text-xs font-medium text-foreground">{req("Invoice date")}</span>
                   <input
                     className={`${input} mt-1`}
                     type="date"
-                    value={issue}
+                    value={issue} aria-label="Invoice date"
                     onChange={(e) => {
                       setIssue(e.target.value);
                       setDue(addDays(e.target.value, form.due_days));
@@ -312,7 +312,7 @@ function BillingPage() {
                 </label>
                 <label className="block">
                   <span className="text-xs font-medium text-foreground">{req("Due by")}</span>
-                  <input className={`${input} mt-1`} type="date" value={due} onChange={(e) => setDue(e.target.value)} />
+                  <input className={`${input} mt-1`} type="date" value={due} aria-label="Due by" onChange={(e) => setDue(e.target.value)} />
                 </label>
                 <div className="flex items-end">
                   <button
@@ -471,7 +471,7 @@ function BillingPage() {
                     <span className="text-xs font-medium text-foreground">{label}</span>
                     <input
                       className={`${input} mt-1`}
-                      value={form[key]}
+                      value={form[key]} aria-label={label}
                       onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
                     />
                   </label>
@@ -480,7 +480,7 @@ function BillingPage() {
                   <span className="text-xs font-medium text-foreground">VAT handling</span>
                   <select
                     className={`${input} mt-1`}
-                    value={form.vat_mode}
+                    value={form.vat_mode} aria-label="VAT handling"
                     onChange={(e) => setForm((f) => ({ ...f, vat_mode: e.target.value as BillingSettings["vat_mode"] }))}
                   >
                     <option value="exclusive">Amounts exclude VAT (15% added)</option>
@@ -495,7 +495,7 @@ function BillingPage() {
                     type="number"
                     min="0"
                     max="90"
-                    value={form.due_days}
+                    value={form.due_days} aria-label="Payment due days"
                     onChange={(e) => setForm((f) => ({ ...f, due_days: Number(e.target.value) }))}
                   />
                 </label>
@@ -544,7 +544,7 @@ function FeeRow({ c }: { c: ClientSummary }) {
           type="number"
           min="0"
           step="0.01"
-          defaultValue={c.monthly_fee ?? ""}
+          defaultValue={c.monthly_fee ?? ""} aria-label="Monthly fee"
           onBlur={(e) => {
             const v = num(e.target.value);
             if (v !== c.monthly_fee) save.mutate({ monthly_fee: v });
@@ -557,7 +557,7 @@ function FeeRow({ c }: { c: ClientSummary }) {
           type="number"
           min="0"
           step="0.01"
-          defaultValue={c.annual_fee ?? ""}
+          defaultValue={c.annual_fee ?? ""} aria-label="Annual fee"
           onBlur={(e) => {
             const v = num(e.target.value);
             if (v !== c.annual_fee) save.mutate({ annual_fee: v });
@@ -567,7 +567,7 @@ function FeeRow({ c }: { c: ClientSummary }) {
       <td className="py-2 pr-4">
         <input
           className={`${input} w-56 text-xs`}
-          defaultValue={c.billing_email}
+          defaultValue={c.billing_email} aria-label="Invoice to email"
           placeholder={c.email}
           onBlur={(e) => {
             const v = e.target.value.trim();
@@ -578,7 +578,7 @@ function FeeRow({ c }: { c: ClientSummary }) {
       <td className="py-2">
         <input
           className={`${input} w-32 text-xs`}
-          defaultValue={c.vat_ref}
+          defaultValue={c.vat_ref} aria-label="Client VAT reference"
           onBlur={(e) => {
             const v = e.target.value.trim();
             if (v !== c.vat_ref) save.mutate({ vat_ref: v });
