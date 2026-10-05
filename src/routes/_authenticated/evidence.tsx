@@ -54,7 +54,8 @@ function EvidencePage() {
   const create = useMutation({
     mutationFn: async () => {
       if (nf && nf.size > 20 * 1024 * 1024) throw new Error("Files must be 20 MB or smaller.");
-      const it = await must(supabase.from("evidence_items").insert({ title: ni.title, category: ni.category, description: ni.description || null }).select().single());
+      const { data: it, error } = await supabase.from("evidence_items").insert({ title: ni.title, category: ni.category, description: ni.description || null }).select().single();
+      if (error || !it) throw new Error(error?.message ?? "Could not save.");
       if (nf) await uploadVersion(it.id, nf);
     },
     onSuccess: () => { setNi({ title: "", category: ni.category, description: "" }); setNf(null); refresh(); }, onError,

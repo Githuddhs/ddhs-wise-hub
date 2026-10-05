@@ -30,8 +30,9 @@ function PlanPage() {
   const onError = (e: Error) => setErr(e.message);
   const plan = useQuery({
     queryKey: ["ee-plan"],
-    queryFn: async () => {
-      const p = await must(supabase.from("ee_plans").select("*").maybeSingle());
+    queryFn: async (): Promise<{ id: string; title: string; start_date: string | null; end_date: string | null }> => {
+      const { data: p, error } = await supabase.from("ee_plans").select("*").maybeSingle();
+      if (error) throw new Error(error.message);
       if (p) return p;
       return must(supabase.from("ee_plans").insert({}).select().single());
     },
@@ -48,7 +49,7 @@ function PlanPage() {
   const objectives = useQuery(q<O>("plan_objectives", "year"));
   const measures = useQuery(q<M>("plan_measures", "due_date"));
   const emps = useQuery({ queryKey: ["employees"], queryFn: () => must(supabase.from("employees").select("*").limit(10000)) as Promise<Employee[]> });
-  const wf = useQuery({ queryKey: ["wf"], queryFn: () => must(supabase.from("workforce_profiles").select("*").maybeSingle()) });
+  const wf = useQuery({ queryKey: ["wf"], queryFn: () => must(supabase.from("workforce_profiles").select("*").maybeSingle()) as Promise<{ sector: string | null } | null> });
   const inv = (t: string) => qc.invalidateQueries({ queryKey: [t] });
 
   const [hdr, setHdr] = useState({ title: "", start_date: "", end_date: "" });
