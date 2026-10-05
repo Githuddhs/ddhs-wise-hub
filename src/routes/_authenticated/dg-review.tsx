@@ -188,7 +188,7 @@ function DgReviewPage() {
       gridText("Promotions", r.promotions),
       gridText("Terminations", r.terminations),
       "Representation by level (designated = African/Coloured/Indian men + all women + white men with disabilities; your % vs gazetted target %):\n" +
-        rep.levels.map((l) => `${l.level}: staff ${l.total}; male ${l.male}%${l.target ? `/${l.target.male}%` : ""}; female ${l.female}%${l.target ? `/${l.target.female}%` : ""}; total ${l.designated}%${l.target ? `/${l.target.total}%; gap ${l.gap}` : " (no target)"}).join("\n"),
+        rep.levels.map((l) => `${l.level}: staff ${l.total}; male ${l.male}%${l.target ? `/${l.target.male}%` : ""}; female ${l.female}%${l.target ? `/${l.target.female}%` : ""}; total ${l.designated}%${l.target ? `/${l.target.total}%; gap ${l.gap}` : " (no target)"}`).join("\n"),
       `Plan: ${plan.data?.title ?? "none on record"}. Period ${plan.data?.start_date ?? "not stated"} to ${plan.data?.end_date ?? "not stated"}.`,
       `Barriers (${barriers.data?.length ?? 0}): ` + (barriers.data ?? []).map((b) => `${b.category}${b.affected_groups ? ` [${b.affected_groups}]` : ""}`).join("; "),
       `Numerical goals (${goals.data?.length ?? 0}): ` + (goals.data ?? []).map((g) => `${g.level}/${g.grp} ${g.year}: ${g.current_pct ?? "?"}% -> ${g.target_pct}%`).join("; "),
