@@ -436,6 +436,7 @@ function BillingPage() {
                   <thead>
                     <tr className="border-b border-border text-left font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                       <th className="py-2 pr-4">Client</th>
+                      <th className="py-2 pr-4">Debit order</th>
                       <th className="py-2 pr-4">Monthly</th>
                       <th className="py-2 pr-4">Annual</th>
                       <th className="py-2 pr-4">Invoice to</th>
@@ -538,6 +539,7 @@ function FeeRow({ c }: { c: ClientSummary }) {
   return (
     <tr className="border-b border-border/60">
       <td className="py-2 pr-4 text-foreground">{c.company || c.email}</td>
+      <td className="py-2 pr-4 text-xs">{c.billing_status === "Paid" ? `Paid to ${c.paid_through ?? ""}` : c.billing_status}</td>
       <td className="py-2 pr-4">
         <input
           className={`${input} w-24 text-xs`}
