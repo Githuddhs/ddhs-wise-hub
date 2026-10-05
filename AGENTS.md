@@ -16,4 +16,5 @@
 - Demo requests are stored in a Cloud table with insert-only public access; nobody can read submissions from the browser.
 - Generated documents (plan PDF, EE Plan Word) are built in the browser with lazily imported libraries; no document data reaches the server except extracted plan text sent to /api/review.
 - AI tool pages and the committee tracker live under src/routes/_authenticated/; each /api AI route verifies the bearer token via src/lib/require-user.server.ts and pages call it through authFetch; tools are signed-in only.
+- Daily pg_cron job POSTs /api/public/action-reminders with a token from the service-role-only cron_tokens table; route emails one digest and stamps reminded_on to avoid repeats.
 - Committee data (members, meetings, actions) is stored per user in Cloud tables with owner-only RLS; profiles auto-create on signup via trigger.

@@ -66,6 +66,7 @@ function CommitteePage() {
       <div className="mx-auto max-w-[1200px]">
         <Link to="/" className="text-[13px] text-muted hover:text-foreground">← DDHS Equity Intelligence</Link>
         <h1 className="mt-4 font-[Fraunces] text-[40px] leading-tight">EE Committee Tracker</h1>
+        <Link to="/calendar" className="mt-2 inline-block text-[13px] text-primary hover:underline">Open compliance calendar →</Link>
         <p className="mt-2 max-w-2xl text-[15px] text-muted">Keep your consultation committee (s16–17) on record: who sits on it, when it meets and what it has committed to. Saved to your account.</p>
         {err && <p role="alert" className="mt-4 text-[13px] text-destructive">{err}</p>}
 
