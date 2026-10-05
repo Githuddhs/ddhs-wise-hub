@@ -74,14 +74,17 @@ function AnalysisPage() {
   const [out, setOut] = useState(""); const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [saved, setSaved] = useState(false);
   const ac = useRef<AbortController | null>(null);
   function summaryText() {
-    const g = (t: string, grid: Grid) => `${t}\n` + ALL_LEVELS.map(([l, label]) => `${label}: ` + COLS.map((c) => `${c}=${grid[l][c]}`).join(" ")).join("\n");
-    return [`Reporting period ${period.from} to ${period.to}. Active employees ${r.activeCount}; with disability ${r.disabilityCount} (${disPct}%).`,
-      g("Workforce profile", r.profile), g("Hires", r.hires), g("Promotions", r.promotions), g("Terminations", r.terminations),
-      "Representation (designated %, target %): " + rep.levels.map((l) => `${l.level} ${l.designated}%${l.target ? ` vs ${l.target.total}%` : ""}`).join("; ")].join("\n\n");
+    const g = (t: string, grid: Grid) => `${t}\n` + ALL_LEVELS.map(([l, label]) => `${label}: ` + COLS.map((c) => `${c}=${grid[l][c]}`).join(" ") + ` total=${rowTotal(grid[l])}`).join("\n");
+    return [`Sector: ${sector || "Not specified"}. Reporting period ${period.from} to ${period.to}. Active employees ${r.activeCount}; with disability ${r.disabilityCount} (${disPct}%${rep.disabilityTarget !== undefined ? ` vs target ${rep.disabilityTarget}%` : ""}).`,
+      "Column codes: A African, C Coloured, I Indian, W White, M male, F female, FN foreign national.",
+      g("Workforce profile", r.profile), g("Employees with disabilities", r.disability), g("Hires", r.hires), g("Promotions", r.promotions), g("Terminations", r.terminations),
+      "Representation by level (designated male %, designated female %, designated total % vs target total %, gap pts):\n" + rep.levels.map((l) => `${l.level}: staff ${l.total}; male ${l.male}%${l.target ? `/${l.target.male}%` : ""}; female ${l.female}%${l.target ? `/${l.target.female}%` : ""}; total ${l.designated}%${l.target ? `/${l.target.total}%; gap ${l.gap}` : " (no target)"}`).join("\n"),
+      "Whole workforce vs national EAP (indicative, approximate): " + eapCompare.map((x) => `${x.c} ${x.pct}% vs ${x.eap}%`).join("; ")].join("\n\n");
   }
   async function explain() {
     setOut(""); setErr(""); setSaved(false); setBusy(true);
     ac.current = new AbortController();
+    let failed = false;
     try {
       const res = await authFetch("/api/explain-gaps", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.current.signal, body: JSON.stringify({ sector: sector || "Not specified", analysis: summaryText() }) });
       if (!res.ok || !res.body) { const j = await res.json().catch(() => ({})); throw new Error(j.error ?? "The AI request failed."); }
@@ -89,10 +92,11 @@ function AnalysisPage() {
       for (;;) {
         const { value, done } = await reader.read(); if (done) break;
         buf += dec.decode(value, { stream: true }); const lines = buf.split("\n"); buf = lines.pop() ?? "";
-        for (const l of lines) { if (!l) continue; const m = JSON.parse(l); if (m.t) { full += m.t; setOut((o) => o + m.t); } if (m.error) setErr(m.error); }
+        for (const l of lines) { if (!l) continue; const m = JSON.parse(l); if (m.t) { full += m.t; setOut((o) => o + m.t); } if (m.error) { failed = true; setErr(m.error); } }
       }
-      if (full.length > 40) {
-        await must(supabase.from("evidence_items").insert({ title: `EEA12 analysis narrative ${period.from} – ${period.to}`, category: "analysis", body: full.slice(0, 100000), description: "AI-generated explanation of workforce gaps (guidance only)." }));
+      if (!failed && full.length > 40) {
+        await must(supabase.from("evidence_items").insert({ title: `EEA12 analysis narrative ${period.from} – ${period.to}`.slice(0, 200), category: "analysis", body: full.slice(0, 100000), description: `AI-generated explanation of workforce gaps for ${r.activeCount} employees${sector ? `, ${sector} sector` : ""} (guidance only).`.slice(0, 2000) }));
+        qc.invalidateQueries({ queryKey: ["evidence_items"] });
         setSaved(true);
       }
     } catch (e) { if ((e as Error).name !== "AbortError") setErr((e as Error).message); }
@@ -168,7 +172,7 @@ function AnalysisPage() {
           <section className={`${card} mt-6`} aria-label="AI explanation">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className={mono}>Explain the gaps (AI)</p>
-              {busy ? <button className={btn} onClick={() => ac.current?.abort()}>Stop</button> : <button className={primaryBtn} onClick={() => void explain()}>Explain gaps</button>}
+              {busy ? <button className={btn} onClick={() => ac.current?.abort()}>Stop</button> : <button className={primaryBtn} disabled={!r.activeCount} onClick={() => void explain()}>Explain gaps</button>}
             </div>
             {err && <p role="alert" className="mt-3 text-[13px] text-destructive">{err}</p>}
             {saved && <p className="mt-3 text-[13px] text-accent">Saved to the <Link to="/evidence" className="underline">evidence repository</Link>.</p>}
