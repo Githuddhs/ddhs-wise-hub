@@ -1,5 +1,5 @@
 // Builds a branded PDF from the planner's Markdown output. Loaded on demand (browser only).
-type Meta = { sector?: string; employees: string; startDate: string; submissionDate: string; planEnd: string };
+type Meta = { sector?: string | undefined; employees: string; startDate: string; submissionDate: string; planEnd: string };
 
 // Brand colours mirror the Legislative glass tokens (PDF cannot read CSS variables).
 const INK: [number, number, number] = [12, 23, 38];
