@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as TargetsRouteImport } from './routes/targets'
+import { Route as AuthenticatedAnalysisRouteImport } from './routes/_authenticated/analysis'
 import { Route as AuthenticatedAssessRouteImport } from './routes/_authenticated/assess'
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
@@ -49,6 +50,11 @@ const TargetsRoute = TargetsRouteImport.update({
   id: '/targets',
   path: '/targets',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAnalysisRoute = AuthenticatedAnalysisRouteImport.update({
+  id: '/analysis',
+  path: '/analysis',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAssessRoute = AuthenticatedAssessRouteImport.update({
   id: '/assess',
@@ -142,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
+  '/analysis': typeof AuthenticatedAnalysisRoute
   '/assess': typeof AuthenticatedAssessRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/committee': typeof AuthenticatedCommitteeRoute
@@ -164,6 +171,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
+  '/analysis': typeof AuthenticatedAnalysisRoute
   '/assess': typeof AuthenticatedAssessRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/committee': typeof AuthenticatedCommitteeRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
+  '/_authenticated/analysis': typeof AuthenticatedAnalysisRoute
   '/_authenticated/assess': typeof AuthenticatedAssessRoute
   '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
@@ -212,6 +221,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/targets'
+    | '/analysis'
     | '/assess'
     | '/calendar'
     | '/committee'
@@ -234,6 +244,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/targets'
+    | '/analysis'
     | '/assess'
     | '/calendar'
     | '/committee'
@@ -257,6 +268,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/targets'
+    | '/_authenticated/analysis'
     | '/_authenticated/assess'
     | '/_authenticated/calendar'
     | '/_authenticated/committee'
@@ -320,6 +332,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/targets'
       preLoaderRoute: typeof TargetsRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/analysis': {
+      id: '/_authenticated/analysis'
+      path: '/analysis'
+      fullPath: '/analysis'
+      preLoaderRoute: typeof AuthenticatedAnalysisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/assess': {
       id: '/_authenticated/assess'
@@ -444,6 +463,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnalysisRoute: typeof AuthenticatedAnalysisRoute
   AuthenticatedAssessRoute: typeof AuthenticatedAssessRoute
   AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
@@ -456,6 +476,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAnalysisRoute: AuthenticatedAnalysisRoute,
   AuthenticatedAssessRoute: AuthenticatedAssessRoute,
   AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
