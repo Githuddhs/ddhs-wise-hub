@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { requireUser } from "@/lib/require-user.server";
 
 const milestone = z.object({
   name: z.string().min(2).max(200),
@@ -36,6 +37,8 @@ export const Route = createFileRoute("/api/progress")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const denied = await requireUser(request);
+        if (denied) return denied;
         let input: z.infer<typeof schema>;
         try {
           input = schema.parse(await request.json());

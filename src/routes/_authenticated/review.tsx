@@ -1,10 +1,11 @@
+import { authFetch } from "@/lib/auth-fetch";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { SECTOR_NAMES } from "@/lib/sector-targets";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export const Route = createFileRoute("/review")({
+export const Route = createFileRoute("/_authenticated/review")({
   head: () => ({
     meta: [
       { title: "EE Plan Compliance Review — DDHS Equity Intelligence" },
@@ -44,7 +45,7 @@ function ReviewPage() {
       setChars(text.length);
       if (text.length > MAX) text = text.slice(0, MAX);
       setStage("Checking against Section 20…");
-      const res = await fetch("/api/review", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify({ fileName: file.name.slice(0, 200), text, ...(sector ? { sector } : {}) }) });
+      const res = await authFetch("/api/review", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify({ fileName: file.name.slice(0, 200), text, ...(sector ? { sector } : {}) }) });
       if (!res.ok || !res.body) { const j = await res.json().catch(() => ({})); throw new Error(j.error || "Something went wrong."); }
       const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = "";
       for (;;) {

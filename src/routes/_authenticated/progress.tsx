@@ -1,9 +1,10 @@
+import { authFetch } from "@/lib/auth-fetch";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export const Route = createFileRoute("/progress")({
+export const Route = createFileRoute("/_authenticated/progress")({
   head: () => ({
     meta: [
       { title: "EE Progress & Risk Review — DDHS Equity Intelligence" },
@@ -51,7 +52,7 @@ function ProgressPage() {
     const ac = new AbortController(); ctrl.current = ac;
     try {
       const body = { reportDate, submissionDate, context, milestones: list.map((m) => ({ ...m, revisedDate: m.revisedDate || m.originalDate, progress: Math.max(0, Math.min(100, parseInt(m.progress, 10) || 0)) })) };
-      const res = await fetch("/api/progress", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify(body) });
+      const res = await authFetch("/api/progress", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify(body) });
       if (!res.ok || !res.body) { const j = await res.json().catch(() => ({})); throw new Error(j.error || "Something went wrong."); }
       const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = "";
       for (;;) {

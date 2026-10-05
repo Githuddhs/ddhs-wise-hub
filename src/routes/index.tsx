@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DemoForm } from "@/components/DemoForm";
+import { AccountButton } from "@/components/AccountButton";
 import glassPanels from "@/assets/glass-panels.jpg";
 
 export const Route = createFileRoute("/")({
@@ -57,6 +58,9 @@ function Index() {
             <Link to="/review" className="transition-colors hover:text-foreground">
               Plan Review
             </Link>
+            <Link to="/committee" className="transition-colors hover:text-foreground">
+              Committee
+            </Link>
             <Link to="/targets" className="transition-colors hover:text-foreground">
               Sector Targets
             </Link>
@@ -64,12 +68,15 @@ function Index() {
               Contact
             </a>
           </nav>
-          <a
-            href="#demo"
-            className="rounded-full bg-primary px-4 py-2 text-[13px] font-medium text-primary-foreground ring-1 ring-black/5 transition-colors hover:bg-primary/90"
-          >
-            Request a demo
-          </a>
+          <div className="flex items-center gap-4">
+            <AccountButton />
+            <a
+              href="#demo"
+              className="rounded-full bg-primary px-4 py-2 text-[13px] font-medium text-primary-foreground ring-1 ring-black/5 transition-colors hover:bg-primary/90"
+            >
+              Request a demo
+            </a>
+          </div>
         </div>
       </header>
 

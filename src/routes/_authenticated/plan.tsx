@@ -1,10 +1,11 @@
+import { authFetch } from "@/lib/auth-fetch";
 import { SECTOR_NAMES } from "@/lib/sector-targets";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export const Route = createFileRoute("/plan")({
+export const Route = createFileRoute("/_authenticated/plan")({
   head: () => ({
     meta: [
       { title: "EE Implementation Planner — DDHS Equity Intelligence" },
@@ -46,7 +47,7 @@ function PlanPage() {
     setErr(""); setOut(""); setBusy(true);
     const ac = new AbortController(); ctrl.current = ac;
     try {
-      const res = await fetch("/api/plan", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify({ ...f, employees: n }) });
+      const res = await authFetch("/api/plan", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify({ ...f, employees: n }) });
       if (!res.ok || !res.body) { const j = await res.json().catch(() => ({})); throw new Error(j.error || "Something went wrong."); }
       const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = "";
       for (;;) {

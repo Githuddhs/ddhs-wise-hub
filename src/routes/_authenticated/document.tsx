@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { LEVELS, SECTIONS, type Goal } from "@/lib/ee-plan-template";
 
-export const Route = createFileRoute("/document")({
+export const Route = createFileRoute("/_authenticated/document")({
   head: () => ({
     meta: [
       { title: "Section 20 EE Plan Builder — DDHS Equity Intelligence" },
