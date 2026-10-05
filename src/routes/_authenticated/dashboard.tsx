@@ -7,6 +7,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { LEVELS, SECTOR_NAMES, GAZETTE_REF } from "@/lib/sector-targets";
 import { GROUPS, analyse, parseRows, templateCsv, type Counts, type GroupKey, type LevelKey } from "@/lib/workforce";
 import { TOOL_LABEL, type Tool } from "@/lib/saved-results";
+import { AppNav } from "@/components/AppNav";
+import { eea12, representation, validate, LEVEL_LABEL, type Employee } from "@/lib/eea12";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -50,6 +52,12 @@ function Dashboard() {
   const deadlines = useQuery({ queryKey: ["deadlines"], queryFn: () => must(supabase.from("compliance_deadlines").select("*").order("due_date")) });
   const results = useQuery({ queryKey: ["results"], queryFn: () => must(supabase.from("saved_results").select("id,tool,title,created_at").order("created_at", { ascending: false }).limit(30)) });
 
+  const emps = useQuery({ queryKey: ["employees"], queryFn: () => must(supabase.from("employees").select("*").limit(10000)) as Promise<Employee[]> });
+  const measures = useQuery({ queryKey: ["all-measures"], queryFn: () => must(supabase.from("plan_measures").select("id,measure,status,due_date")) });
+  const goals = useQuery({ queryKey: ["all-goals"], queryFn: () => must(supabase.from("plan_goals").select("level,grp,year,target_pct")) });
+  const decisions = useQuery({ queryKey: ["decisions"], queryFn: () => must(supabase.from("decisions").select("id")) });
+  const links = useQuery({ queryKey: ["evidence-links"], queryFn: () => must(supabase.from("evidence_links").select("target_type,target_id")) });
+  const evCount = useQuery({ queryKey: ["evidence-count"], queryFn: async () => { const { count } = await supabase.from("evidence_items").select("id", { count: "exact", head: true }); return count ?? 0; } });
   const [sector, setSector] = useState("");
   const [counts, setCounts] = useState<Counts>({});
   const [editing, setEditing] = useState(false);
@@ -87,6 +95,17 @@ function Dashboard() {
   }
 
   const a = analyse(counts, sector || null);
+  const empList = emps.data ?? [];
+  const hasEmps = empList.length > 0;
+  const live = hasEmps ? representation(eea12(empList, "1900-01-01", new Date().toISOString().slice(0, 10)).profile, sector || null) : null;
+  const quality = hasEmps ? validate(empList) : null;
+  const ms = measures.data ?? [];
+  const tdy = new Date().toISOString().slice(0, 10);
+  const msOverdue = ms.filter((m) => m.status !== "Done" && m.due_date && m.due_date < tdy).length;
+  const govTargets = ms.length + (actions.data?.length ?? 0) + (decisions.data?.length ?? 0);
+  const covered = new Set((links.data ?? []).map((l) => l.target_type + l.target_id)).size;
+  const heldMeetings = (meetings.data ?? []).filter((m) => m.meeting_date <= tdy).length;
+  const goalFor = (lvl: string) => (goals.data ?? []).filter((g) => g.level === lvl && g.grp === "Designated total").sort((x, y) => x.year - y.year).find((g) => g.year >= new Date().getFullYear());
   const acts = actions.data ?? [];
   const today = new Date().toISOString().slice(0, 10);
   const done = acts.filter((x) => x.status === "Done").length;
@@ -106,15 +125,35 @@ function Dashboard() {
   return (
     <main className="min-h-screen bg-background px-6 py-12 font-[Inter] text-foreground">
       <div className="mx-auto max-w-[1200px]">
-        <Link to="/" className="text-[13px] text-muted hover:text-foreground">← DDHS Equity Intelligence</Link>
-        <h1 className="mt-4 font-[Fraunces] text-[40px] leading-tight">Equity Intelligence Dashboard</h1>
+        <AppNav />
+        <h1 className=" font-[Fraunces] text-[40px] leading-tight">Equity Intelligence Dashboard</h1>
         <p className="mt-2 max-w-2xl text-[15px] text-muted">Your workforce against the gazetted sector targets, committee status, deadlines and saved results. Saved to your account.</p>
         {err && <p role="alert" className="mt-4 text-[13px] text-destructive">{err}</p>}
 
-        <section className={`${card} mt-8`} aria-label="Workforce vs sector targets">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Executive summary">
+          <Link to="/workforce" className={`${card} block hover:border-primary/60`}><p className={mono}>Data quality</p><p className={`mt-1 font-[Fraunces] text-[34px] ${quality && quality.score < 90 ? "text-destructive" : ""}`}>{quality ? `${quality.score}%` : "—"}</p><p className="text-[12px] text-muted">{hasEmps ? `${empList.length} employee records` : "No employee data yet"}</p></Link>
+          <Link to="/calendar" className={`${card} block hover:border-primary/60`}><p className={mono}>Overdue actions</p><p className={`mt-1 font-[Fraunces] text-[34px] ${overdue + msOverdue ? "text-destructive" : ""}`}>{overdue + msOverdue}</p><p className="text-[12px] text-muted">{overdue} committee · {msOverdue} plan measures</p></Link>
+          <Link to="/ee-plan" className={`${card} block hover:border-primary/60`}><p className={mono}>Plan measures done</p><p className="mt-1 font-[Fraunces] text-[34px]">{ms.filter((m) => m.status === "Done").length}/{ms.length}</p><p className="text-[12px] text-muted">{goals.data?.length ?? 0} numerical goals set</p></Link>
+          <Link to="/evidence" className={`${card} block hover:border-primary/60`}><p className={mono}>Governance</p><p className="mt-1 font-[Fraunces] text-[34px]">{govTargets ? `${Math.round((covered / govTargets) * 100)}%` : "—"}</p><p className="text-[12px] text-muted">evidence coverage · {heldMeetings} meetings held · {decisions.data?.length ?? 0} decisions · {evCount.data ?? 0} documents</p></Link>
+        </div>
+
+        {live && (
+          <section className={`${card} mt-6`} aria-label="Target progress">
+            <div className="flex flex-wrap items-center justify-between gap-2"><p className={mono}>Target progress · live employee data</p><Link to="/analysis" className="text-[13px] text-primary hover:underline">Full EEA12 analysis →</Link></div>
+            {!sector && <p className="mt-2 text-[13px] text-muted">Choose your sector below to compare against the gazetted targets.</p>}
+            <div className="mt-3 overflow-x-auto"><table className="w-full text-[14px]">
+              <thead><tr className="text-left">{["Level", "Staff", "Designated now", "Next plan goal", "Sector target", "Gap to target"].map((h) => <th key={h} className={`${mono} py-2 pr-4`}>{h}</th>)}</tr></thead>
+              <tbody>{live.levels.filter((l) => l.target || l.total).map((l) => { const g = goalFor(l.level); return (
+                <tr key={l.level} className="border-t border-line/50"><td className="py-2 pr-4">{LEVEL_LABEL[l.level]}</td><td className="pr-4">{l.total}</td><td className="pr-4">{l.designated}%</td><td className="pr-4">{g ? `${g.target_pct}% (${g.year})` : "—"}</td><td className="pr-4">{l.target ? `${l.target.total}%` : "—"}</td>
+                  <td className={l.gap === null ? "text-muted" : l.gap < 0 ? "text-destructive" : "text-accent"}>{l.gap === null ? "—" : l.gap < 0 ? `${l.gap} pts` : "On target"}</td></tr>); })}</tbody>
+            </table></div>
+          </section>
+        )}
+
+        <section className={`${card} mt-6`} aria-label="Workforce vs sector targets">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className={mono}>Workforce vs s15A sector targets</p>
+              <p className={mono}>{hasEmps ? "Sector & manual totals (fallback)" : "Workforce vs s15A sector targets"}</p>
               <p className="mt-1 text-[13px] text-muted">{a.total} employees in the four target levels · {GAZETTE_REF}</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
