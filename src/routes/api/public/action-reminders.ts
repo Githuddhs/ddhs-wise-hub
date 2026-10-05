@@ -21,16 +21,22 @@ export const Route = createFileRoute('/api/public/action-reminders')({
           .neq('status', 'Done').not('due_date', 'is', null).lte('due_date', soon)
         if (error) { console.error(error); return Response.json({ error: 'query failed' }, { status: 500 }) }
         const due = (acts ?? []).filter((a) => a.reminded_on !== today)
-        if (!due.length) return Response.json({ sent: 0 })
+        const { data: ms } = await supabaseAdmin
+          .from('plan_measures').select('id,measure,due_date,status,owner,reminded_on')
+          .neq('status', 'Done').not('due_date', 'is', null).lte('due_date', soon)
+        const dueM = (ms ?? []).filter((m) => m.reminded_on !== today)
+        if (!due.length && !dueM.length) return Response.json({ sent: 0 })
         const ids = [...new Set(due.map((a) => a.member_id).filter(Boolean))] as string[]
         const { data: mem } = ids.length ? await supabaseAdmin.from('committee_members').select('id,name').in('id', ids) : { data: [] }
         const owner = (id: string | null) => mem?.find((m) => m.id === id)?.name ?? 'Unassigned'
         const items = due.map((a) => ({ title: a.title, due_date: a.due_date as string, status: a.status, owner: owner(a.member_id), overdue: (a.due_date as string) < today }))
+          .concat(dueM.map((m) => ({ title: `EE plan measure: ${m.measure}`, due_date: m.due_date as string, status: m.status, owner: m.owner ?? 'Unassigned', overdue: (m.due_date as string) < today })))
         const { sendTemplateEmail } = await import('@/lib/email-templates/send-email')
         try {
-          await sendTemplateEmail('action-reminder', 'sdm@ddhs.co.za', { templateData: { items }, idempotencyKey: `action-reminder-${today}-${due.map((a) => a.id).join('').slice(0, 64)}` })
+          await sendTemplateEmail('action-reminder', 'sdm@ddhs.co.za', { templateData: { items }, idempotencyKey: `action-reminder-${today}-${[...due, ...dueM].map((a) => a.id).join('').slice(0, 64)}` })
         } catch (e) { console.error('reminder send failed', e); return Response.json({ error: 'send failed' }, { status: 502 }) }
-        await supabaseAdmin.from('committee_actions').update({ reminded_on: today }).in('id', due.map((a) => a.id))
+        if (due.length) await supabaseAdmin.from('committee_actions').update({ reminded_on: today }).in('id', due.map((a) => a.id))
+        if (dueM.length) await supabaseAdmin.from('plan_measures').update({ reminded_on: today }).in('id', dueM.map((m) => m.id))
         return Response.json({ sent: items.length })
       },
     },

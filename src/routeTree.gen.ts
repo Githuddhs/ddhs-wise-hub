@@ -19,6 +19,7 @@ import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
+import { Route as AuthenticatedEePlanRouteImport } from './routes/_authenticated/ee-plan'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
 import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
@@ -79,6 +80,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
 const AuthenticatedDocumentRoute = AuthenticatedDocumentRouteImport.update({
   id: '/document',
   path: '/document',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEePlanRoute = AuthenticatedEePlanRouteImport.update({
+  id: '/ee-plan',
+  path: '/ee-plan',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
@@ -154,6 +160,7 @@ export interface FileRoutesByFullPath {
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
+  '/ee-plan': typeof AuthenticatedEePlanRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/review': typeof AuthenticatedReviewRoute
@@ -177,6 +184,7 @@ export interface FileRoutesByTo {
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
+  '/ee-plan': typeof AuthenticatedEePlanRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/review': typeof AuthenticatedReviewRoute
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
+  '/_authenticated/ee-plan': typeof AuthenticatedEePlanRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
   '/_authenticated/review': typeof AuthenticatedReviewRoute
@@ -227,6 +236,7 @@ export interface FileRouteTypes {
     | '/committee'
     | '/dashboard'
     | '/document'
+    | '/ee-plan'
     | '/plan'
     | '/progress'
     | '/review'
@@ -250,6 +260,7 @@ export interface FileRouteTypes {
     | '/committee'
     | '/dashboard'
     | '/document'
+    | '/ee-plan'
     | '/plan'
     | '/progress'
     | '/review'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/_authenticated/committee'
     | '/_authenticated/dashboard'
     | '/_authenticated/document'
+    | '/_authenticated/ee-plan'
     | '/_authenticated/plan'
     | '/_authenticated/progress'
     | '/_authenticated/review'
@@ -375,6 +387,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocumentRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ee-plan': {
+      id: '/_authenticated/ee-plan'
+      path: '/ee-plan'
+      fullPath: '/ee-plan'
+      preLoaderRoute: typeof AuthenticatedEePlanRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/plan': {
       id: '/_authenticated/plan'
       path: '/plan'
@@ -469,6 +488,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
+  AuthenticatedEePlanRoute: typeof AuthenticatedEePlanRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
   AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
@@ -482,6 +502,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
+  AuthenticatedEePlanRoute: AuthenticatedEePlanRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
   AuthenticatedReviewRoute: AuthenticatedReviewRoute,
