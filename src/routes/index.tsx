@@ -43,26 +43,20 @@ function Index() {
             <a href="#trust" className="transition-colors hover:text-foreground">
               Trust
             </a>
-            <Link to="/assess" className="transition-colors hover:text-foreground">
-              Gap Assessment
-            </Link>
-            <Link to="/plan" className="transition-colors hover:text-foreground">
-              Planner
-            </Link>
-            <Link to="/progress" className="transition-colors hover:text-foreground">
-              Progress
-            </Link>
-            <Link to="/document" className="transition-colors hover:text-foreground">
-              EE Plan Builder
-            </Link>
-            <Link to="/review" className="transition-colors hover:text-foreground">
-              Plan Review
-            </Link>
             <Link to="/dashboard" className="transition-colors hover:text-foreground">
               Dashboard
             </Link>
-            <Link to="/committee" className="transition-colors hover:text-foreground">
-              Committee
+            <Link to="/workforce" className="transition-colors hover:text-foreground">
+              Workforce
+            </Link>
+            <Link to="/ee-plan" className="transition-colors hover:text-foreground">
+              EE Plan
+            </Link>
+            <Link to="/evidence" className="transition-colors hover:text-foreground">
+              Evidence
+            </Link>
+            <Link to="/assess" className="transition-colors hover:text-foreground">
+              AI tools
             </Link>
             <Link to="/targets" className="transition-colors hover:text-foreground">
               Sector Targets

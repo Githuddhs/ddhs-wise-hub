@@ -13,16 +13,21 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as TargetsRouteImport } from './routes/targets'
+import { Route as AuthenticatedAnalysisRouteImport } from './routes/_authenticated/analysis'
 import { Route as AuthenticatedAssessRouteImport } from './routes/_authenticated/assess'
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
+import { Route as AuthenticatedEePlanRouteImport } from './routes/_authenticated/ee-plan'
+import { Route as AuthenticatedEvidenceRouteImport } from './routes/_authenticated/evidence'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
 import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
+import { Route as AuthenticatedWorkforceRouteImport } from './routes/_authenticated/workforce'
 import { Route as ApiAssessRouteImport } from './routes/api/assess'
 import { Route as ApiDemoRequestRouteImport } from './routes/api/demo-request'
+import { Route as ApiExplainGapsRouteImport } from './routes/api/explain-gaps'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
 import { Route as ApiProgressRouteImport } from './routes/api/progress'
 import { Route as ApiReviewRouteImport } from './routes/api/review'
@@ -47,6 +52,11 @@ const TargetsRoute = TargetsRouteImport.update({
   id: '/targets',
   path: '/targets',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAnalysisRoute = AuthenticatedAnalysisRouteImport.update({
+  id: '/analysis',
+  path: '/analysis',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAssessRoute = AuthenticatedAssessRouteImport.update({
   id: '/assess',
@@ -73,6 +83,16 @@ const AuthenticatedDocumentRoute = AuthenticatedDocumentRouteImport.update({
   path: '/document',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedEePlanRoute = AuthenticatedEePlanRouteImport.update({
+  id: '/ee-plan',
+  path: '/ee-plan',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEvidenceRoute = AuthenticatedEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
   id: '/plan',
   path: '/plan',
@@ -88,6 +108,11 @@ const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
   path: '/review',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedWorkforceRoute = AuthenticatedWorkforceRouteImport.update({
+  id: '/workforce',
+  path: '/workforce',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiAssessRoute = ApiAssessRouteImport.update({
   id: '/api/assess',
   path: '/api/assess',
@@ -96,6 +121,11 @@ const ApiAssessRoute = ApiAssessRouteImport.update({
 const ApiDemoRequestRoute = ApiDemoRequestRouteImport.update({
   id: '/api/demo-request',
   path: '/api/demo-request',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiExplainGapsRoute = ApiExplainGapsRouteImport.update({
+  id: '/api/explain-gaps',
+  path: '/api/explain-gaps',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPlanRoute = ApiPlanRouteImport.update({
@@ -130,16 +160,21 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
+  '/analysis': typeof AuthenticatedAnalysisRoute
   '/assess': typeof AuthenticatedAssessRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
+  '/ee-plan': typeof AuthenticatedEePlanRoute
+  '/evidence': typeof AuthenticatedEvidenceRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/review': typeof AuthenticatedReviewRoute
+  '/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
@@ -150,16 +185,21 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
+  '/analysis': typeof AuthenticatedAnalysisRoute
   '/assess': typeof AuthenticatedAssessRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
+  '/ee-plan': typeof AuthenticatedEePlanRoute
+  '/evidence': typeof AuthenticatedEvidenceRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/review': typeof AuthenticatedReviewRoute
+  '/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
@@ -172,16 +212,21 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
+  '/_authenticated/analysis': typeof AuthenticatedAnalysisRoute
   '/_authenticated/assess': typeof AuthenticatedAssessRoute
   '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
+  '/_authenticated/ee-plan': typeof AuthenticatedEePlanRoute
+  '/_authenticated/evidence': typeof AuthenticatedEvidenceRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
   '/_authenticated/review': typeof AuthenticatedReviewRoute
+  '/_authenticated/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
@@ -194,16 +239,21 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/targets'
+    | '/analysis'
     | '/assess'
     | '/calendar'
     | '/committee'
     | '/dashboard'
     | '/document'
+    | '/ee-plan'
+    | '/evidence'
     | '/plan'
     | '/progress'
     | '/review'
+    | '/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
@@ -214,16 +264,21 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/targets'
+    | '/analysis'
     | '/assess'
     | '/calendar'
     | '/committee'
     | '/dashboard'
     | '/document'
+    | '/ee-plan'
+    | '/evidence'
     | '/plan'
     | '/progress'
     | '/review'
+    | '/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
@@ -235,16 +290,21 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/targets'
+    | '/_authenticated/analysis'
     | '/_authenticated/assess'
     | '/_authenticated/calendar'
     | '/_authenticated/committee'
     | '/_authenticated/dashboard'
     | '/_authenticated/document'
+    | '/_authenticated/ee-plan'
+    | '/_authenticated/evidence'
     | '/_authenticated/plan'
     | '/_authenticated/progress'
     | '/_authenticated/review'
+    | '/_authenticated/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
@@ -259,6 +319,7 @@ export interface RootRouteChildren {
   TargetsRoute: typeof TargetsRoute
   ApiAssessRoute: typeof ApiAssessRoute
   ApiDemoRequestRoute: typeof ApiDemoRequestRoute
+  ApiExplainGapsRoute: typeof ApiExplainGapsRoute
   ApiPlanRoute: typeof ApiPlanRoute
   ApiProgressRoute: typeof ApiProgressRoute
   ApiReviewRoute: typeof ApiReviewRoute
@@ -296,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TargetsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/analysis': {
+      id: '/_authenticated/analysis'
+      path: '/analysis'
+      fullPath: '/analysis'
+      preLoaderRoute: typeof AuthenticatedAnalysisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/assess': {
       id: '/_authenticated/assess'
       path: '/assess'
@@ -331,6 +399,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDocumentRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ee-plan': {
+      id: '/_authenticated/ee-plan'
+      path: '/ee-plan'
+      fullPath: '/ee-plan'
+      preLoaderRoute: typeof AuthenticatedEePlanRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/evidence': {
+      id: '/_authenticated/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof AuthenticatedEvidenceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/plan': {
       id: '/_authenticated/plan'
       path: '/plan'
@@ -352,6 +434,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedReviewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/workforce': {
+      id: '/_authenticated/workforce'
+      path: '/workforce'
+      fullPath: '/workforce'
+      preLoaderRoute: typeof AuthenticatedWorkforceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/assess': {
       id: '/api/assess'
       path: '/api/assess'
@@ -364,6 +453,13 @@ declare module '@tanstack/react-router' {
       path: '/api/demo-request'
       fullPath: '/api/demo-request'
       preLoaderRoute: typeof ApiDemoRequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/explain-gaps': {
+      id: '/api/explain-gaps'
+      path: '/api/explain-gaps'
+      fullPath: '/api/explain-gaps'
+      preLoaderRoute: typeof ApiExplainGapsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/plan': {
@@ -405,25 +501,33 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnalysisRoute: typeof AuthenticatedAnalysisRoute
   AuthenticatedAssessRoute: typeof AuthenticatedAssessRoute
   AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
+  AuthenticatedEePlanRoute: typeof AuthenticatedEePlanRoute
+  AuthenticatedEvidenceRoute: typeof AuthenticatedEvidenceRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
   AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
+  AuthenticatedWorkforceRoute: typeof AuthenticatedWorkforceRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAnalysisRoute: AuthenticatedAnalysisRoute,
   AuthenticatedAssessRoute: AuthenticatedAssessRoute,
   AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
+  AuthenticatedEePlanRoute: AuthenticatedEePlanRoute,
+  AuthenticatedEvidenceRoute: AuthenticatedEvidenceRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
   AuthenticatedReviewRoute: AuthenticatedReviewRoute,
+  AuthenticatedWorkforceRoute: AuthenticatedWorkforceRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -436,6 +540,7 @@ const rootRouteChildren: RootRouteChildren = {
   TargetsRoute: TargetsRoute,
   ApiAssessRoute: ApiAssessRoute,
   ApiDemoRequestRoute: ApiDemoRequestRoute,
+  ApiExplainGapsRoute: ApiExplainGapsRoute,
   ApiPlanRoute: ApiPlanRoute,
   ApiProgressRoute: ApiProgressRoute,
   ApiReviewRoute: ApiReviewRoute,

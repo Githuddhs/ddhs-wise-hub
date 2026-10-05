@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_log: {
+        Row: {
+          action: string
+          at: string
+          id: number
+          record_id: string | null
+          summary: string | null
+          table_name: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          at?: string
+          id?: never
+          record_id?: string | null
+          summary?: string | null
+          table_name: string
+          user_id: string
+        }
+        Update: {
+          action?: string
+          at?: string
+          id?: never
+          record_id?: string | null
+          summary?: string | null
+          table_name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       committee_actions: {
         Row: {
           created_at: string
@@ -161,6 +191,44 @@ export type Database = {
         }
         Relationships: []
       }
+      decisions: {
+        Row: {
+          created_at: string
+          decided_on: string
+          decision: string
+          id: string
+          made_by: string | null
+          meeting_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          decided_on: string
+          decision: string
+          id?: string
+          made_by?: string | null
+          meeting_id?: string | null
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          decided_on?: string
+          decision?: string
+          id?: string
+          made_by?: string | null
+          meeting_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "decisions_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "committee_meetings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demo_requests: {
         Row: {
           company: string
@@ -199,6 +267,385 @@ export type Database = {
           work_email?: string
         }
         Relationships: []
+      }
+      ee_plans: {
+        Row: {
+          end_date: string | null
+          id: string
+          start_date: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          end_date?: string | null
+          id?: string
+          start_date?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          end_date?: string | null
+          id?: string
+          start_date?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      employees: {
+        Row: {
+          department: string | null
+          disability: boolean
+          employee_no: string
+          end_date: string | null
+          foreign_national: boolean
+          gender: string | null
+          id: string
+          level: string | null
+          promoted_on: string | null
+          race: string | null
+          start_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          department?: string | null
+          disability?: boolean
+          employee_no: string
+          end_date?: string | null
+          foreign_national?: boolean
+          gender?: string | null
+          id?: string
+          level?: string | null
+          promoted_on?: string | null
+          race?: string | null
+          start_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          department?: string | null
+          disability?: boolean
+          employee_no?: string
+          end_date?: string | null
+          foreign_national?: boolean
+          gender?: string | null
+          id?: string
+          level?: string | null
+          promoted_on?: string | null
+          race?: string | null
+          start_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      evidence_items: {
+        Row: {
+          body: string | null
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          category: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          title: string
+          user_id?: string
+        }
+        Update: {
+          body?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      evidence_links: {
+        Row: {
+          id: string
+          item_id: string
+          target_id: string
+          target_type: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          item_id: string
+          target_id: string
+          target_type: string
+          user_id?: string
+        }
+        Update: {
+          id?: string
+          item_id?: string
+          target_id?: string
+          target_type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evidence_links_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "evidence_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      evidence_versions: {
+        Row: {
+          created_at: string
+          file_name: string
+          id: string
+          item_id: string
+          path: string
+          size_bytes: number | null
+          user_id: string
+          version: number
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          id?: string
+          item_id: string
+          path: string
+          size_bytes?: number | null
+          user_id?: string
+          version: number
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          id?: string
+          item_id?: string
+          path?: string
+          size_bytes?: number | null
+          user_id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evidence_versions_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "evidence_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      import_batches: {
+        Row: {
+          created_at: string
+          file_name: string
+          id: string
+          mode: string
+          row_count: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          id?: string
+          mode: string
+          row_count?: number
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          id?: string
+          mode?: string
+          row_count?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      plan_barriers: {
+        Row: {
+          affected_groups: string | null
+          category: string
+          created_at: string
+          description: string
+          id: string
+          plan_id: string
+          user_id: string
+        }
+        Insert: {
+          affected_groups?: string | null
+          category: string
+          created_at?: string
+          description: string
+          id?: string
+          plan_id: string
+          user_id?: string
+        }
+        Update: {
+          affected_groups?: string | null
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          plan_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plan_barriers_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "ee_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plan_goals: {
+        Row: {
+          created_at: string
+          current_pct: number | null
+          grp: string
+          id: string
+          level: string
+          plan_id: string
+          target_pct: number
+          user_id: string
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          current_pct?: number | null
+          grp: string
+          id?: string
+          level: string
+          plan_id: string
+          target_pct: number
+          user_id?: string
+          year: number
+        }
+        Update: {
+          created_at?: string
+          current_pct?: number | null
+          grp?: string
+          id?: string
+          level?: string
+          plan_id?: string
+          target_pct?: number
+          user_id?: string
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plan_goals_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "ee_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plan_measures: {
+        Row: {
+          barrier_id: string | null
+          created_at: string
+          due_date: string | null
+          id: string
+          measure: string
+          milestones: string | null
+          owner: string | null
+          plan_id: string
+          reminded_on: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          barrier_id?: string | null
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          measure: string
+          milestones?: string | null
+          owner?: string | null
+          plan_id: string
+          reminded_on?: string | null
+          status?: string
+          user_id?: string
+        }
+        Update: {
+          barrier_id?: string | null
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          measure?: string
+          milestones?: string | null
+          owner?: string | null
+          plan_id?: string
+          reminded_on?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plan_measures_barrier_id_fkey"
+            columns: ["barrier_id"]
+            isOneToOne: false
+            referencedRelation: "plan_barriers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "plan_measures_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "ee_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plan_objectives: {
+        Row: {
+          created_at: string
+          id: string
+          objective: string
+          plan_id: string
+          user_id: string
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          objective: string
+          plan_id: string
+          user_id?: string
+          year: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          objective?: string
+          plan_id?: string
+          user_id?: string
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plan_objectives_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "ee_plans"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {

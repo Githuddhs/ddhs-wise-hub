@@ -43,6 +43,27 @@
       "when": 1791197615498,
       "tag": "0005_cron_token",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791216200379,
+      "tag": "0006_mvp_modules",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791216215082,
+      "tag": "0007_audit_fix",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791216231186,
+      "tag": "0008_evidence_storage_policies",
+      "breakpoints": true
     }
   ]
 }
