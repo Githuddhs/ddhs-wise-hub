@@ -50,7 +50,7 @@ export async function exportPlanPdf(markdown: string, meta: Meta) {
 
   const lines = markdown.split("\n");
   for (let i = 0; i < lines.length; i++) {
-    const raw = lines[i]; const t = raw.trim();
+    const raw = lines[i] ?? ""; const t = raw.trim();
     if (!t) { y += 4; continue; }
     if (/^#{1,3}\s/.test(t)) {
       ensure(48); y += 10;
@@ -61,15 +61,15 @@ export async function exportPlanPdf(markdown: string, meta: Meta) {
     }
     if (t.startsWith("|")) {
       const rows: string[][] = [];
-      while (i < lines.length && lines[i].trim().startsWith("|")) {
-        const r = lines[i].trim();
+      while (i < lines.length && (lines[i] ?? "").trim().startsWith("|")) {
+        const r = (lines[i] ?? "").trim();
         if (!/^\|[\s:|-]+\|$/.test(r)) rows.push(r.replace(/^\||\|$/g, "").split("|").map(strip));
         i++;
       }
       i--;
       if (rows.length) {
         autoTable(doc, {
-          startY: y, head: [rows[0]], body: rows.slice(1), margin: { left: M, right: M },
+          startY: y, head: [rows[0] ?? []], body: rows.slice(1), margin: { left: M, right: M },
           styles: { font: "helvetica", fontSize: 8.5, cellPadding: 5, textColor: INK, lineColor: LINE, lineWidth: 0.5, valign: "top" },
           headStyles: { fillColor: PRIMARY, textColor: [255, 255, 255], fontStyle: "bold" },
           alternateRowStyles: { fillColor: [244, 247, 251] },
@@ -80,7 +80,7 @@ export async function exportPlanPdf(markdown: string, meta: Meta) {
     }
     const ind = Math.min(raw.search(/\S/), 8) * 3;
     const num = t.match(/^(\d+)[.)]\s+(.*)/);
-    if (num) { para(num[2], { bullet: `${num[1]}.`, indent: ind }); continue; }
+    if (num) { para(num[2] ?? "", { bullet: `${num[1]}.`, indent: ind }); continue; }
     if (/^[-*+]\s+/.test(t)) { para(t.replace(/^[-*+]\s+/, ""), { bullet: "\u2022", indent: ind }); continue; }
     para(t);
   }
