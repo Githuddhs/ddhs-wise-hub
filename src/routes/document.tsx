@@ -133,7 +133,8 @@ function DocumentPage() {
                 </div>
               ))}
             </article>
-            <p className="mt-4 text-[11px] text-muted">Template guidance only — have the final plan reviewed before adoption. Not legal advice.</p>
+            <p className="mt-4 text-[12px]"><Link to="/review" className="underline">Check your finished draft with the Plan Review</Link></p>
+            <p className="mt-2 text-[11px] text-muted">Template guidance only — have the final plan reviewed before adoption. Not legal advice.</p>
           </section>
         </div>
       </main>
