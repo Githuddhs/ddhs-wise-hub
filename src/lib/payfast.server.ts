@@ -7,9 +7,9 @@ export function payfastConfig() {
   const key = process.env["PAYFAST_MERCHANT_KEY"];
   const live = !!id && !!key && process.env["PAYFAST_MODE"] === "live";
   return {
-    merchantId: id || "10000100",
-    merchantKey: key || "46f0cd694581a",
-    passphrase: id ? process.env["PAYFAST_PASSPHRASE"] ?? "" : "jt7NOE43FZPn",
+    merchantId: id || "10004002",
+    merchantKey: key || "q1cd2rdny4a53",
+    passphrase: id ? process.env["PAYFAST_PASSPHRASE"] ?? "" : "payfast",
     host: live ? "www.payfast.co.za" : "sandbox.payfast.co.za",
     live,
   };
