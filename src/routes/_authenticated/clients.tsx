@@ -114,8 +114,14 @@ function Clients() {
     } catch (e) { onError(e as Error); }
   }
 
+  const [sort, setSort] = useState<"az" | "newest">("az");
   const list = rows.data ?? [];
-  const registered = list.filter((r) => r.registered);
+  const sorted = [...list].sort((a, b) =>
+    sort === "az"
+      ? (a.company || a.email || "").localeCompare(b.company || b.email || "", "en", { sensitivity: "base" })
+      : b.created_at.localeCompare(a.created_at),
+  );
+  const registered = sorted.filter((r) => r.registered);
   const others = list.filter((r) => !r.registered);
 
   return (
@@ -198,7 +204,21 @@ function Clients() {
           <section className={`${card} mt-6`} aria-label="Client register">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className={mono}>Client register</p>
-              <p className="text-[13px] text-muted">{registered.length} client{registered.length === 1 ? "" : "s"}</p>
+              <div className="flex items-center gap-3">
+                <label className="flex items-center gap-2 text-[13px] text-muted">
+                  <span className={mono}>Sort</span>
+                  <select
+                    className={`${input} w-auto`}
+                    value={sort}
+                    onChange={(e) => setSort(e.target.value as "az" | "newest")}
+                    aria-label="Sort clients"
+                  >
+                    <option value="az">Company A–Z</option>
+                    <option value="newest">Newest first</option>
+                  </select>
+                </label>
+                <p className="text-[13px] text-muted">{registered.length} client{registered.length === 1 ? "" : "s"}</p>
+              </div>
             </div>
             {!rows.data?.length ? (
               <p className="mt-3 text-[14px] text-muted">No clients yet. Use the form above to create the first login.</p>
@@ -211,7 +231,7 @@ function Clients() {
                     ))}</tr>
                   </thead>
                   <tbody>
-                    {list.map((r) => (
+                    {sorted.map((r) => (
                       <tr key={r.user_id} className="border-t border-line/50 align-top">
                         <td className="py-3 pr-4">
                           <span className="block font-medium">{r.company || "—"}</span>
