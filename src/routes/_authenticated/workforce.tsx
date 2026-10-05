@@ -154,8 +154,8 @@ function WorkforcePage() {
 
         <section className={`${card} mt-6`} aria-label="Employees">
           <div className="flex flex-wrap items-center gap-2">
-            <input className={`${input} w-56`} placeholder="Search employee no. or dept" value={q} onChange={(e) => setQ(e.target.value)} />
-            <select aria-label="Filter level" className={`${input} w-auto`} value={lvl} onChange={(e) => setLvl(e.target.value)}>
+            <input className="rounded-lg border border-line/70 bg-panel/60 px-2 py-1.5 text-[13px] w-56" placeholder="Search employee no. or dept" value={q} onChange={(e) => setQ(e.target.value)} />
+            <select aria-label="Filter level" className="rounded-lg border border-line/70 bg-panel/60 px-2 py-1.5 text-[13px]" value={lvl} onChange={(e) => setLvl(e.target.value)}>
               <option value="">All levels</option>{ALL_LEVELS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
             </select>
             <label className="text-[13px]"><input type="checkbox" checked={onlyIssues} onChange={(e) => setOnlyIssues(e.target.checked)} /> Only rows with issues</label>
