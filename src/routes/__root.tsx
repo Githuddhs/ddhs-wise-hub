@@ -78,16 +78,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "DDHS Equity Intelligence — Employment Equity Compliance" },
+      {
+        name: "description",
+        content:
+          "AI-assisted Employment Equity compliance, workforce transformation and governance for South African designated employers.",
+      },
+      { name: "author", content: "DDHS Equity Intelligence (Pty) Ltd" },
+      { property: "og:title", content: "DDHS Equity Intelligence — Employment Equity Compliance" },
+      {
+        property: "og:description",
+        content:
+          "AI-assisted EE reporting, workforce analytics and governance dashboards built for the Employment Equity Act.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
