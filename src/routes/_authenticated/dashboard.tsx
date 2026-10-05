@@ -43,7 +43,7 @@ function Dashboard() {
   const qc = useQueryClient();
   const [err, setErr] = useState("");
   const onError = (e: Error) => setErr(e.message);
-  const profile = useQuery({ queryKey: ["wf"], queryFn: () => must(supabase.from("workforce_profiles").select("*").maybeSingle()) });
+  const profile = useQuery({ queryKey: ["wf"], queryFn: () => must(supabase.from("workforce_profiles").select("*").maybeSingle()) as Promise<{ sector: string | null; counts: unknown } | null> });
   const actions = useQuery({ queryKey: ["cm-actions"], queryFn: () => must(supabase.from("committee_actions").select("*")) });
   const meetings = useQuery({ queryKey: ["cm-meetings"], queryFn: () => must(supabase.from("committee_meetings").select("*").order("meeting_date")) });
   const members = useQuery({ queryKey: ["cm-members"], queryFn: () => must(supabase.from("committee_members").select("id")) });
@@ -101,7 +101,7 @@ function Dashboard() {
   ].sort((x, y) => x.due_date.localeCompare(y.due_date));
   const [dl, setDl] = useState({ title: "", due_date: "" });
   const [openId, setOpenId] = useState<string | null>(null);
-  const opened = useQuery({ queryKey: ["result", openId], enabled: !!openId, queryFn: () => must(supabase.from("saved_results").select("content").eq("id", openId as string).single()) });
+  const opened = useQuery({ queryKey: ["result", openId], enabled: !!openId, queryFn: () => must(supabase.from("saved_results").select("content").eq("id", openId as string).single()) as Promise<{ content: string }> });
 
   return (
     <main className="min-h-screen bg-background px-6 py-12 font-[Inter] text-foreground">
