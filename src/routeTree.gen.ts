@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as TargetsRouteImport } from './routes/targets'
 import { Route as AuthenticatedAssessRouteImport } from './routes/_authenticated/assess'
+import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
@@ -50,6 +51,11 @@ const TargetsRoute = TargetsRouteImport.update({
 const AuthenticatedAssessRoute = AuthenticatedAssessRouteImport.update({
   id: '/assess',
   path: '/assess',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCommitteeRoute = AuthenticatedCommitteeRouteImport.update({
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/assess': typeof AuthenticatedAssessRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/assess': typeof AuthenticatedAssessRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/_authenticated/assess': typeof AuthenticatedAssessRoute
+  '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/assess'
+    | '/calendar'
     | '/committee'
     | '/dashboard'
     | '/document'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/assess'
+    | '/calendar'
     | '/committee'
     | '/dashboard'
     | '/document'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/_authenticated/assess'
+    | '/_authenticated/calendar'
     | '/_authenticated/committee'
     | '/_authenticated/dashboard'
     | '/_authenticated/document'
@@ -289,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/assess'
       fullPath: '/assess'
       preLoaderRoute: typeof AuthenticatedAssessRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/calendar': {
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/committee': {
@@ -387,6 +406,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAssessRoute: typeof AuthenticatedAssessRoute
+  AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
@@ -397,6 +417,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAssessRoute: AuthenticatedAssessRoute,
+  AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
