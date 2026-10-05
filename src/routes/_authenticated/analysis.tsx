@@ -1,3 +1,4 @@
+import { fetchAllEmployees } from "@/lib/employees";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useRef, useState } from "react";
@@ -52,7 +53,7 @@ function GridTable({ title, grid }: { title: string; grid: Grid }) {
 function AnalysisPage() {
   const qc = useQueryClient();
   const [period, setPeriod] = useState(defaultPeriod);
-  const emps = useQuery({ queryKey: ["employees"], queryFn: () => must(supabase.from("employees").select("*").limit(10000)) as Promise<Employee[]> });
+  const emps = useQuery({ queryKey: ["employees"], queryFn: () => fetchAllEmployees<Employee>() });
   const wf = useQuery({ queryKey: ["wf"], queryFn: () => must(supabase.from("workforce_profiles").select("*").maybeSingle()) as Promise<{ sector: string | null } | null> });
   const [sectorPick, setSectorPick] = useState<string | null>(null);
   const sector = sectorPick ?? wf.data?.sector ?? "";

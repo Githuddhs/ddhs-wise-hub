@@ -1,3 +1,4 @@
+import { fetchAllEmployees } from "@/lib/employees";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -52,7 +53,7 @@ function Dashboard() {
   const deadlines = useQuery({ queryKey: ["deadlines"], queryFn: () => must(supabase.from("compliance_deadlines").select("*").order("due_date")) });
   const results = useQuery({ queryKey: ["results"], queryFn: () => must(supabase.from("saved_results").select("id,tool,title,created_at").order("created_at", { ascending: false }).limit(30)) });
 
-  const emps = useQuery({ queryKey: ["employees"], queryFn: () => must(supabase.from("employees").select("*").limit(10000)) as Promise<Employee[]> });
+  const emps = useQuery({ queryKey: ["employees"], queryFn: () => fetchAllEmployees<Employee>() });
   const measures = useQuery({ queryKey: ["all-measures"], queryFn: () => must(supabase.from("plan_measures").select("id,measure,status,due_date")) });
   const goals = useQuery({ queryKey: ["all-goals"], queryFn: () => must(supabase.from("plan_goals").select("level,grp,year,target_pct")) });
   const decisions = useQuery({ queryKey: ["decisions"], queryFn: () => must(supabase.from("decisions").select("id")) });
