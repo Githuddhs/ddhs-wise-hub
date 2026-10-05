@@ -27,6 +27,7 @@ export function AppNav() {
         <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="font-[JetBrains_Mono] text-[10px] uppercase tracking-wider text-muted/70">DDHS</span>
           <Link to="/clients" className="text-muted hover:text-foreground" activeProps={{ className: "text-foreground font-medium" }}>Clients</Link>
+          <Link to="/billing" className="text-muted hover:text-foreground" activeProps={{ className: "text-foreground font-medium" }}>Invoices</Link>
         </span>
       )}
     </nav>
