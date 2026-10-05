@@ -21,6 +21,7 @@ import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
 import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
+import { Route as AuthenticatedWorkforceRouteImport } from './routes/_authenticated/workforce'
 import { Route as ApiAssessRouteImport } from './routes/api/assess'
 import { Route as ApiDemoRequestRouteImport } from './routes/api/demo-request'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
@@ -88,6 +89,11 @@ const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
   path: '/review',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedWorkforceRoute = AuthenticatedWorkforceRouteImport.update({
+  id: '/workforce',
+  path: '/workforce',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiAssessRoute = ApiAssessRouteImport.update({
   id: '/api/assess',
   path: '/api/assess',
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/review': typeof AuthenticatedReviewRoute
+  '/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
   '/review': typeof AuthenticatedReviewRoute
+  '/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
@@ -180,6 +188,7 @@ export interface FileRoutesById {
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
   '/_authenticated/review': typeof AuthenticatedReviewRoute
+  '/_authenticated/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
     | '/plan'
     | '/progress'
     | '/review'
+    | '/workforce'
     | '/api/assess'
     | '/api/demo-request'
     | '/api/plan'
@@ -222,6 +232,7 @@ export interface FileRouteTypes {
     | '/plan'
     | '/progress'
     | '/review'
+    | '/workforce'
     | '/api/assess'
     | '/api/demo-request'
     | '/api/plan'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/_authenticated/plan'
     | '/_authenticated/progress'
     | '/_authenticated/review'
+    | '/_authenticated/workforce'
     | '/api/assess'
     | '/api/demo-request'
     | '/api/plan'
@@ -352,6 +364,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedReviewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/workforce': {
+      id: '/_authenticated/workforce'
+      path: '/workforce'
+      fullPath: '/workforce'
+      preLoaderRoute: typeof AuthenticatedWorkforceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/assess': {
       id: '/api/assess'
       path: '/api/assess'
@@ -413,6 +432,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
   AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
+  AuthenticatedWorkforceRoute: typeof AuthenticatedWorkforceRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -424,6 +444,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
   AuthenticatedReviewRoute: AuthenticatedReviewRoute,
+  AuthenticatedWorkforceRoute: AuthenticatedWorkforceRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
