@@ -17,6 +17,7 @@ import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as ReviewRouteImport } from './routes/review'
 import { Route as TargetsRouteImport } from './routes/targets'
 import { Route as ApiAssessRouteImport } from './routes/api/assess'
+import { Route as ApiDemoRequestRouteImport } from './routes/api/demo-request'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
 import { Route as ApiProgressRouteImport } from './routes/api/progress'
 import { Route as ApiReviewRouteImport } from './routes/api/review'
@@ -62,6 +63,11 @@ const ApiAssessRoute = ApiAssessRouteImport.update({
   path: '/api/assess',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDemoRequestRoute = ApiDemoRequestRouteImport.update({
+  id: '/api/demo-request',
+  path: '/api/demo-request',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPlanRoute = ApiPlanRouteImport.update({
   id: '/api/plan',
   path: '/api/plan',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/review': typeof ReviewRoute
   '/targets': typeof TargetsRoute
   '/api/assess': typeof ApiAssessRoute
+  '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/review': typeof ReviewRoute
   '/targets': typeof TargetsRoute
   '/api/assess': typeof ApiAssessRoute
+  '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/review': typeof ReviewRoute
   '/targets': typeof TargetsRoute
   '/api/assess': typeof ApiAssessRoute
+  '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/targets'
     | '/api/assess'
+    | '/api/demo-request'
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/targets'
     | '/api/assess'
+    | '/api/demo-request'
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/review'
     | '/targets'
     | '/api/assess'
+    | '/api/demo-request'
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
@@ -181,6 +193,7 @@ export interface RootRouteChildren {
   ReviewRoute: typeof ReviewRoute
   TargetsRoute: typeof TargetsRoute
   ApiAssessRoute: typeof ApiAssessRoute
+  ApiDemoRequestRoute: typeof ApiDemoRequestRoute
   ApiPlanRoute: typeof ApiPlanRoute
   ApiProgressRoute: typeof ApiProgressRoute
   ApiReviewRoute: typeof ApiReviewRoute
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAssessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/demo-request': {
+      id: '/api/demo-request'
+      path: '/api/demo-request'
+      fullPath: '/api/demo-request'
+      preLoaderRoute: typeof ApiDemoRequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/plan': {
       id: '/api/plan'
       path: '/api/plan'
@@ -285,6 +305,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewRoute: ReviewRoute,
   TargetsRoute: TargetsRoute,
   ApiAssessRoute: ApiAssessRoute,
+  ApiDemoRequestRoute: ApiDemoRequestRoute,
   ApiPlanRoute: ApiPlanRoute,
   ApiProgressRoute: ApiProgressRoute,
   ApiReviewRoute: ApiReviewRoute,
