@@ -57,6 +57,13 @@
       "when": 1791216215082,
       "tag": "0007_audit_fix",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791216231186,
+      "tag": "0008_evidence_storage_policies",
+      "breakpoints": true
     }
   ]
 }
