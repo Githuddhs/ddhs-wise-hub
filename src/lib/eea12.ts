@@ -72,14 +72,14 @@ export function eea12(emps: Employee[], from: string, to: string) {
 
 export type Representation = { level: Level; total: number; male: number; female: number; designated: number; target?: { male: number; female: number; total: number } | undefined; gap: number | null };
 
-/** Designated-group % per level vs the s15A sector target (designated = A/C/I men + all women, excl. foreign nationals). */
-export function representation(profile: Grid, sector: string | null): { levels: Representation[]; disabilityTarget?: number | undefined } {
+/** Designated-group % per level vs the s15A sector target (designated = A/C/I men + all women + white men with disabilities, excl. foreign nationals). */
+export function representation(profile: Grid, sector: string | null, disability?: Grid): { levels: Representation[]; disabilityTarget?: number | undefined } {
   const t = sector ? findSector(sector) : undefined;
   const levels = ALL_LEVELS.map(([level]) => {
     const r = profile[level];
     const total = rowTotal(r);
     const pct = (x: number) => (total ? Math.round((x / total) * 1000) / 10 : 0);
-    const male = pct(r.AM + r.CM + r.IM), female = pct(r.AF + r.CF + r.IF + r.WF);
+    const male = pct(r.AM + r.CM + r.IM + (disability?.[level]?.WM ?? 0)), female = pct(r.AF + r.CF + r.IF + r.WF);
     const designated = Math.round((male + female) * 10) / 10;
     const target = t && (TARGET_LEVELS as string[]).includes(level) ? t[level as "top"] : undefined;
     return { level, total, male, female, designated, target, gap: target && total ? Math.round((designated - target.total) * 10) / 10 : null };

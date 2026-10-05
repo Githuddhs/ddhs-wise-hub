@@ -69,7 +69,7 @@ function PlanPage() {
     mutationFn: async () => {
       if (!emps.data?.length) throw new Error("Import your workforce first to pre-fill goals from the analysis.");
       const r = eea12(emps.data, `${startYear - 1}-10-01`, todayIso());
-      const rep = representation(r.profile, wf.data?.sector ?? null);
+      const rep = representation(r.profile, wf.data?.sector ?? null, r.disability);
       const rows = rep.levels.filter((l) => l.target && l.gap !== null && l.gap < 0).flatMap((l) => years.map((y, i) => ({
         plan_id: pid!, level: l.level, grp: "Designated total", year: y, current_pct: l.designated,
         target_pct: Math.round((l.designated + ((l.target!.total - l.designated) * (i + 1)) / years.length) * 10) / 10,
