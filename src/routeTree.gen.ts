@@ -28,6 +28,7 @@ import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedWorkforceRouteImport } from './routes/_authenticated/workforce'
 import { Route as ApiAssessRouteImport } from './routes/api/assess'
 import { Route as ApiDemoRequestRouteImport } from './routes/api/demo-request'
+import { Route as ApiDgReviewRouteImport } from './routes/api/dg-review'
 import { Route as ApiExplainGapsRouteImport } from './routes/api/explain-gaps'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
 import { Route as ApiProgressRouteImport } from './routes/api/progress'
@@ -129,6 +130,11 @@ const ApiDemoRequestRoute = ApiDemoRequestRouteImport.update({
   path: '/api/demo-request',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDgReviewRoute = ApiDgReviewRouteImport.update({
+  id: '/api/dg-review',
+  path: '/api/dg-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiExplainGapsRoute = ApiExplainGapsRouteImport.update({
   id: '/api/explain-gaps',
   path: '/api/explain-gaps',
@@ -181,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/dg-review': typeof ApiDgReviewRoute
   '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
@@ -207,6 +214,7 @@ export interface FileRoutesByTo {
   '/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/dg-review': typeof ApiDgReviewRoute
   '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
@@ -235,6 +243,7 @@ export interface FileRoutesById {
   '/_authenticated/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/dg-review': typeof ApiDgReviewRoute
   '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
@@ -263,6 +272,7 @@ export interface FileRouteTypes {
     | '/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/dg-review'
     | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
@@ -289,6 +299,7 @@ export interface FileRouteTypes {
     | '/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/dg-review'
     | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
     | '/_authenticated/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/dg-review'
     | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
@@ -331,6 +343,7 @@ export interface RootRouteChildren {
   TargetsRoute: typeof TargetsRoute
   ApiAssessRoute: typeof ApiAssessRoute
   ApiDemoRequestRoute: typeof ApiDemoRequestRoute
+  ApiDgReviewRoute: typeof ApiDgReviewRoute
   ApiExplainGapsRoute: typeof ApiExplainGapsRoute
   ApiPlanRoute: typeof ApiPlanRoute
   ApiProgressRoute: typeof ApiProgressRoute
@@ -474,6 +487,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDemoRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/dg-review': {
+      id: '/api/dg-review'
+      path: '/api/dg-review'
+      fullPath: '/api/dg-review'
+      preLoaderRoute: typeof ApiDgReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/explain-gaps': {
       id: '/api/explain-gaps'
       path: '/api/explain-gaps'
@@ -561,6 +581,7 @@ const rootRouteChildren: RootRouteChildren = {
   TargetsRoute: TargetsRoute,
   ApiAssessRoute: ApiAssessRoute,
   ApiDemoRequestRoute: ApiDemoRequestRoute,
+  ApiDgReviewRoute: ApiDgReviewRoute,
   ApiExplainGapsRoute: ApiExplainGapsRoute,
   ApiPlanRoute: ApiPlanRoute,
   ApiProgressRoute: ApiProgressRoute,
