@@ -1,0 +1,2 @@
+ALTER TABLE public.saved_results DROP CONSTRAINT saved_results_tool_check;
+ALTER TABLE public.saved_results ADD CONSTRAINT saved_results_tool_check CHECK (tool IN ('assess','plan','progress','review','dg'));

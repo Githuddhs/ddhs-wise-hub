@@ -5,7 +5,7 @@ const GROUPS = [
   ["Data", [["/workforce", "Workforce data"], ["/analysis", "EEA12 analysis"]]],
   ["Plan", [["/ee-plan", "EEA13 plan"], ["/calendar", "Calendar"]]],
   ["Governance", [["/evidence", "Evidence"], ["/committee", "Committee"]]],
-  ["AI tools", [["/assess", "Gap assessment"], ["/plan", "Planner"], ["/progress", "Progress"], ["/review", "Plan review"], ["/document", "Word builder"]]],
+  ["AI tools", [["/assess", "Gap assessment"], ["/plan", "Planner"], ["/progress", "Progress"], ["/review", "Plan review"], ["/dg-review", "DG review"], ["/document", "Word builder"]]],
 ] as const;
 
 /** Grouped navigation shown at the top of every signed-in workspace page. */

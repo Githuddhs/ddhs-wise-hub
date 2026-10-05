@@ -19,6 +19,7 @@ import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedClientsRouteImport } from './routes/_authenticated/clients'
 import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDgReviewRouteImport } from './routes/_authenticated/dg-review'
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
 import { Route as AuthenticatedEePlanRouteImport } from './routes/_authenticated/ee-plan'
 import { Route as AuthenticatedEvidenceRouteImport } from './routes/_authenticated/evidence'
@@ -28,6 +29,7 @@ import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedWorkforceRouteImport } from './routes/_authenticated/workforce'
 import { Route as ApiAssessRouteImport } from './routes/api/assess'
 import { Route as ApiDemoRequestRouteImport } from './routes/api/demo-request'
+import { Route as ApiDgReviewRouteImport } from './routes/api/dg-review'
 import { Route as ApiExplainGapsRouteImport } from './routes/api/explain-gaps'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
 import { Route as ApiProgressRouteImport } from './routes/api/progress'
@@ -84,6 +86,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDgReviewRoute = AuthenticatedDgReviewRouteImport.update({
+  id: '/dg-review',
+  path: '/dg-review',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDocumentRoute = AuthenticatedDocumentRouteImport.update({
   id: '/document',
   path: '/document',
@@ -129,6 +136,11 @@ const ApiDemoRequestRoute = ApiDemoRequestRouteImport.update({
   path: '/api/demo-request',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDgReviewRoute = ApiDgReviewRouteImport.update({
+  id: '/api/dg-review',
+  path: '/api/dg-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiExplainGapsRoute = ApiExplainGapsRouteImport.update({
   id: '/api/explain-gaps',
   path: '/api/explain-gaps',
@@ -172,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/clients': typeof AuthenticatedClientsRoute
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/dg-review': typeof AuthenticatedDgReviewRoute
   '/document': typeof AuthenticatedDocumentRoute
   '/ee-plan': typeof AuthenticatedEePlanRoute
   '/evidence': typeof AuthenticatedEvidenceRoute
@@ -181,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/dg-review': typeof ApiDgReviewRoute
   '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
@@ -198,6 +212,7 @@ export interface FileRoutesByTo {
   '/clients': typeof AuthenticatedClientsRoute
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/dg-review': typeof AuthenticatedDgReviewRoute
   '/document': typeof AuthenticatedDocumentRoute
   '/ee-plan': typeof AuthenticatedEePlanRoute
   '/evidence': typeof AuthenticatedEvidenceRoute
@@ -207,6 +222,7 @@ export interface FileRoutesByTo {
   '/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/dg-review': typeof ApiDgReviewRoute
   '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
@@ -226,6 +242,7 @@ export interface FileRoutesById {
   '/_authenticated/clients': typeof AuthenticatedClientsRoute
   '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/dg-review': typeof AuthenticatedDgReviewRoute
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
   '/_authenticated/ee-plan': typeof AuthenticatedEePlanRoute
   '/_authenticated/evidence': typeof AuthenticatedEvidenceRoute
@@ -235,6 +252,7 @@ export interface FileRoutesById {
   '/_authenticated/workforce': typeof AuthenticatedWorkforceRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
+  '/api/dg-review': typeof ApiDgReviewRoute
   '/api/explain-gaps': typeof ApiExplainGapsRoute
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
@@ -254,6 +272,7 @@ export interface FileRouteTypes {
     | '/clients'
     | '/committee'
     | '/dashboard'
+    | '/dg-review'
     | '/document'
     | '/ee-plan'
     | '/evidence'
@@ -263,6 +282,7 @@ export interface FileRouteTypes {
     | '/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/dg-review'
     | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
@@ -280,6 +300,7 @@ export interface FileRouteTypes {
     | '/clients'
     | '/committee'
     | '/dashboard'
+    | '/dg-review'
     | '/document'
     | '/ee-plan'
     | '/evidence'
@@ -289,6 +310,7 @@ export interface FileRouteTypes {
     | '/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/dg-review'
     | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
@@ -307,6 +329,7 @@ export interface FileRouteTypes {
     | '/_authenticated/clients'
     | '/_authenticated/committee'
     | '/_authenticated/dashboard'
+    | '/_authenticated/dg-review'
     | '/_authenticated/document'
     | '/_authenticated/ee-plan'
     | '/_authenticated/evidence'
@@ -316,6 +339,7 @@ export interface FileRouteTypes {
     | '/_authenticated/workforce'
     | '/api/assess'
     | '/api/demo-request'
+    | '/api/dg-review'
     | '/api/explain-gaps'
     | '/api/plan'
     | '/api/progress'
@@ -331,6 +355,7 @@ export interface RootRouteChildren {
   TargetsRoute: typeof TargetsRoute
   ApiAssessRoute: typeof ApiAssessRoute
   ApiDemoRequestRoute: typeof ApiDemoRequestRoute
+  ApiDgReviewRoute: typeof ApiDgReviewRoute
   ApiExplainGapsRoute: typeof ApiExplainGapsRoute
   ApiPlanRoute: typeof ApiPlanRoute
   ApiProgressRoute: typeof ApiProgressRoute
@@ -411,6 +436,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/dg-review': {
+      id: '/_authenticated/dg-review'
+      path: '/dg-review'
+      fullPath: '/dg-review'
+      preLoaderRoute: typeof AuthenticatedDgReviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/document': {
       id: '/_authenticated/document'
       path: '/document'
@@ -474,6 +506,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDemoRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/dg-review': {
+      id: '/api/dg-review'
+      path: '/api/dg-review'
+      fullPath: '/api/dg-review'
+      preLoaderRoute: typeof ApiDgReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/explain-gaps': {
       id: '/api/explain-gaps'
       path: '/api/explain-gaps'
@@ -526,6 +565,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedClientsRoute: typeof AuthenticatedClientsRoute
   AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDgReviewRoute: typeof AuthenticatedDgReviewRoute
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
   AuthenticatedEePlanRoute: typeof AuthenticatedEePlanRoute
   AuthenticatedEvidenceRoute: typeof AuthenticatedEvidenceRoute
@@ -542,6 +582,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedClientsRoute: AuthenticatedClientsRoute,
   AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDgReviewRoute: AuthenticatedDgReviewRoute,
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
   AuthenticatedEePlanRoute: AuthenticatedEePlanRoute,
   AuthenticatedEvidenceRoute: AuthenticatedEvidenceRoute,
@@ -561,6 +602,7 @@ const rootRouteChildren: RootRouteChildren = {
   TargetsRoute: TargetsRoute,
   ApiAssessRoute: ApiAssessRoute,
   ApiDemoRequestRoute: ApiDemoRequestRoute,
+  ApiDgReviewRoute: ApiDgReviewRoute,
   ApiExplainGapsRoute: ApiExplainGapsRoute,
   ApiPlanRoute: ApiPlanRoute,
   ApiProgressRoute: ApiProgressRoute,

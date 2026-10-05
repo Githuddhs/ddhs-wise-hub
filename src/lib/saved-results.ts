@@ -1,7 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 
-export type Tool = "assess" | "plan" | "progress" | "review";
-export const TOOL_LABEL: Record<Tool, string> = { assess: "Gap assessment", plan: "Implementation plan", progress: "Progress & risk review", review: "Plan review" };
+export type Tool = "assess" | "plan" | "progress" | "review" | "dg";
+export const TOOL_LABEL: Record<Tool, string> = { assess: "Gap assessment", plan: "Implementation plan", progress: "Progress & risk review", review: "Plan review", dg: "DG pack review" };
 
 /** Saves a finished AI result to the signed-in user's dashboard (best effort). */
 export async function saveResult(tool: Tool, content: string) {
