@@ -99,6 +99,13 @@
       "when": 1791225651239,
       "tag": "0013_billing_invoices",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1791226390899,
+      "tag": "0014_payfast_subscriptions",
+      "breakpoints": true
     }
   ]
 }

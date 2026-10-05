@@ -23,6 +23,7 @@ export function AppNav() {
           ))}
         </span>
       ))}
+      {!isStaff && <Link to="/my-billing" className="text-muted hover:text-foreground" activeProps={{ className: "text-foreground font-medium" }}>Billing</Link>}
       {isStaff && (
         <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="font-[JetBrains_Mono] text-[10px] uppercase tracking-wider text-muted/70">DDHS</span>

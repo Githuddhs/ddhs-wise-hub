@@ -24,6 +24,7 @@ import { Route as AuthenticatedDgReviewRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
 import { Route as AuthenticatedEePlanRouteImport } from './routes/_authenticated/ee-plan'
 import { Route as AuthenticatedEvidenceRouteImport } from './routes/_authenticated/evidence'
+import { Route as AuthenticatedMyBillingRouteImport } from './routes/_authenticated/my-billing'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
@@ -37,6 +38,7 @@ import { Route as ApiPlanRouteImport } from './routes/api/plan'
 import { Route as ApiProgressRouteImport } from './routes/api/progress'
 import { Route as ApiReviewRouteImport } from './routes/api/review'
 import { Route as ApiPublicActionRemindersRouteImport } from './routes/api/public/action-reminders'
+import { Route as ApiPublicPayfastItnRouteImport } from './routes/api/public/payfast-itn'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
@@ -113,6 +115,11 @@ const AuthenticatedEvidenceRoute = AuthenticatedEvidenceRouteImport.update({
   path: '/evidence',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMyBillingRoute = AuthenticatedMyBillingRouteImport.update({
+  id: '/my-billing',
+  path: '/my-billing',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
@@ -179,6 +186,11 @@ const ApiPublicActionRemindersRoute =
     path: '/api/public/action-reminders',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPayfastItnRoute = ApiPublicPayfastItnRouteImport.update({
+  id: '/api/public/payfast-itn',
+  path: '/api/public/payfast-itn',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -201,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/document': typeof AuthenticatedDocumentRoute
   '/ee-plan': typeof AuthenticatedEePlanRoute
   '/evidence': typeof AuthenticatedEvidenceRoute
+  '/my-billing': typeof AuthenticatedMyBillingRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
@@ -214,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
   '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
+  '/api/public/payfast-itn': typeof ApiPublicPayfastItnRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -231,6 +245,7 @@ export interface FileRoutesByTo {
   '/document': typeof AuthenticatedDocumentRoute
   '/ee-plan': typeof AuthenticatedEePlanRoute
   '/evidence': typeof AuthenticatedEvidenceRoute
+  '/my-billing': typeof AuthenticatedMyBillingRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
@@ -244,6 +259,7 @@ export interface FileRoutesByTo {
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
   '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
+  '/api/public/payfast-itn': typeof ApiPublicPayfastItnRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -263,6 +279,7 @@ export interface FileRoutesById {
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
   '/_authenticated/ee-plan': typeof AuthenticatedEePlanRoute
   '/_authenticated/evidence': typeof AuthenticatedEvidenceRoute
+  '/_authenticated/my-billing': typeof AuthenticatedMyBillingRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
@@ -276,6 +293,7 @@ export interface FileRoutesById {
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
   '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
+  '/api/public/payfast-itn': typeof ApiPublicPayfastItnRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -295,6 +313,7 @@ export interface FileRouteTypes {
     | '/document'
     | '/ee-plan'
     | '/evidence'
+    | '/my-billing'
     | '/onboarding'
     | '/plan'
     | '/progress'
@@ -308,6 +327,7 @@ export interface FileRouteTypes {
     | '/api/progress'
     | '/api/review'
     | '/api/public/action-reminders'
+    | '/api/public/payfast-itn'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -325,6 +345,7 @@ export interface FileRouteTypes {
     | '/document'
     | '/ee-plan'
     | '/evidence'
+    | '/my-billing'
     | '/onboarding'
     | '/plan'
     | '/progress'
@@ -338,6 +359,7 @@ export interface FileRouteTypes {
     | '/api/progress'
     | '/api/review'
     | '/api/public/action-reminders'
+    | '/api/public/payfast-itn'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -356,6 +378,7 @@ export interface FileRouteTypes {
     | '/_authenticated/document'
     | '/_authenticated/ee-plan'
     | '/_authenticated/evidence'
+    | '/_authenticated/my-billing'
     | '/_authenticated/onboarding'
     | '/_authenticated/plan'
     | '/_authenticated/progress'
@@ -369,6 +392,7 @@ export interface FileRouteTypes {
     | '/api/progress'
     | '/api/review'
     | '/api/public/action-reminders'
+    | '/api/public/payfast-itn'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -385,6 +409,7 @@ export interface RootRouteChildren {
   ApiProgressRoute: typeof ApiProgressRoute
   ApiReviewRoute: typeof ApiReviewRoute
   ApiPublicActionRemindersRoute: typeof ApiPublicActionRemindersRoute
+  ApiPublicPayfastItnRoute: typeof ApiPublicPayfastItnRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
@@ -495,6 +520,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEvidenceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/my-billing': {
+      id: '/_authenticated/my-billing'
+      path: '/my-billing'
+      fullPath: '/my-billing'
+      preLoaderRoute: typeof AuthenticatedMyBillingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/onboarding': {
       id: '/_authenticated/onboarding'
       path: '/onboarding'
@@ -586,6 +618,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicActionRemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/payfast-itn': {
+      id: '/api/public/payfast-itn'
+      path: '/api/public/payfast-itn'
+      fullPath: '/api/public/payfast-itn'
+      preLoaderRoute: typeof ApiPublicPayfastItnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -608,6 +647,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
   AuthenticatedEePlanRoute: typeof AuthenticatedEePlanRoute
   AuthenticatedEvidenceRoute: typeof AuthenticatedEvidenceRoute
+  AuthenticatedMyBillingRoute: typeof AuthenticatedMyBillingRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
@@ -627,6 +667,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
   AuthenticatedEePlanRoute: AuthenticatedEePlanRoute,
   AuthenticatedEvidenceRoute: AuthenticatedEvidenceRoute,
+  AuthenticatedMyBillingRoute: AuthenticatedMyBillingRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
@@ -650,6 +691,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiProgressRoute: ApiProgressRoute,
   ApiReviewRoute: ApiReviewRoute,
   ApiPublicActionRemindersRoute: ApiPublicActionRemindersRoute,
+  ApiPublicPayfastItnRoute: ApiPublicPayfastItnRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
