@@ -14,6 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
+      committee_actions: {
+        Row: {
+          created_at: string
+          due_date: string | null
+          id: string
+          meeting_id: string | null
+          member_id: string | null
+          status: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          meeting_id?: string | null
+          member_id?: string | null
+          status?: string
+          title: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          meeting_id?: string | null
+          member_id?: string | null
+          status?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "committee_actions_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "committee_meetings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "committee_actions_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "committee_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      committee_meetings: {
+        Row: {
+          created_at: string
+          id: string
+          meeting_date: string
+          notes: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          meeting_date: string
+          notes?: string | null
+          title: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          meeting_date?: string
+          notes?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      committee_members: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          represents: string | null
+          role: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          represents?: string | null
+          role?: string | null
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          represents?: string | null
+          role?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       demo_requests: {
         Row: {
           company: string
