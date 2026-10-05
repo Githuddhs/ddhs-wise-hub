@@ -6,3 +6,4 @@
 - [x] Section 20 EE Plan document builder (/document), Word download
 - [ ] Email notification to owner for each demo request
 - [x] Upload drafted EE Plan -> AI Section 20 compliance review page
+- [ ] Build in s15A sector targets (scope to confirm with user)
