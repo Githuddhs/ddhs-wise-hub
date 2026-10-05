@@ -71,6 +71,13 @@
       "when": 1791221635016,
       "tag": "0009_client_onboarding",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791222088330,
+      "tag": "0010_dg_review_result",
+      "breakpoints": true
     }
   ]
 }
