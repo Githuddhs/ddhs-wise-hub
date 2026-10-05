@@ -1,3 +1,4 @@
+import { saveResult } from "@/lib/saved-results";
 import { authFetch } from "@/lib/auth-fetch";
 import { SECTOR_NAMES } from "@/lib/sector-targets";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -49,13 +50,13 @@ function PlanPage() {
     try {
       const res = await authFetch("/api/plan", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify({ ...f, employees: n }) });
       if (!res.ok || !res.body) { const j = await res.json().catch(() => ({})); throw new Error(j.error || "Something went wrong."); }
-      const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = "";
+      const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = ""; let full = "";
       for (;;) {
         const { value, done } = await reader.read();
-        if (done) break;
+        if (done) { void saveResult("plan", full); break; }
         buf += dec.decode(value, { stream: true });
         const lines = buf.split("\n"); buf = lines.pop() ?? "";
-        for (const l of lines) { if (!l) continue; const m = JSON.parse(l); if (m.t) setOut((o) => o + m.t); if (m.error) setErr(m.error); }
+        for (const l of lines) { if (!l) continue; const m = JSON.parse(l); if (m.t) { full += m.t; setOut((o) => o + m.t); } if (m.error) setErr(m.error); }
       }
     } catch (x) {
       if ((x as Error).name !== "AbortError") setErr((x as Error).message);
