@@ -267,34 +267,12 @@ function Index() {
                 A 30-minute walkthrough with our compliance team — bring your workforce data, leave
                 with a live transformation view.
               </p>
-              <a
-                href="mailto:compliance@ddhs.co.za"
-                className="mt-7 inline-block rounded-full bg-primary px-7 py-3.5 text-[14px] font-medium text-primary-foreground ring-1 ring-black/5 transition-colors hover:bg-primary/90"
-              >
-                Request a demo
-              </a>
+              <p className="mt-6 text-[13px] text-muted">
+                Prefer email? <a href="mailto:compliance@ddhs.co.za" className="underline">compliance@ddhs.co.za</a>
+              </p>
             </div>
-            <div className="rise rounded-[min(1vw,16px)] border border-line/60 bg-panel/50 p-5 [animation-delay:120ms]">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <div className="font-[JetBrains_Mono] text-[10px] uppercase tracking-[0.16em] text-muted">
-                    Designated employer
-                  </div>
-                  <div className="mt-1 font-[Fraunces] text-[18px]">Yes · 50+ staff</div>
-                </div>
-                <div>
-                  <div className="font-[JetBrains_Mono] text-[10px] uppercase tracking-[0.16em] text-muted">
-                    Head office
-                  </div>
-                  <div className="mt-1 font-[Fraunces] text-[18px]">Sandton, Gauteng</div>
-                </div>
-                <div className="col-span-2 border-t border-line/60 pt-3">
-                  <div className="font-[JetBrains_Mono] text-[10px] uppercase tracking-[0.16em] text-muted">
-                    Compliance team contact
-                  </div>
-                  <div className="mt-1 font-[Fraunces] text-[18px]">compliance@ddhs.co.za</div>
-                </div>
-              </div>
+            <div className="rise [animation-delay:120ms]">
+              <DemoForm />
             </div>
           </div>
         </div>
