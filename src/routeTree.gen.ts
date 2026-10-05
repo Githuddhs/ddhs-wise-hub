@@ -24,6 +24,7 @@ import { Route as AuthenticatedDgReviewRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
 import { Route as AuthenticatedEePlanRouteImport } from './routes/_authenticated/ee-plan'
 import { Route as AuthenticatedEvidenceRouteImport } from './routes/_authenticated/evidence'
+import { Route as AuthenticatedMyBillingRouteImport } from './routes/_authenticated/my-billing'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
@@ -112,6 +113,11 @@ const AuthenticatedEePlanRoute = AuthenticatedEePlanRouteImport.update({
 const AuthenticatedEvidenceRoute = AuthenticatedEvidenceRouteImport.update({
   id: '/evidence',
   path: '/evidence',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMyBillingRoute = AuthenticatedMyBillingRouteImport.update({
+  id: '/my-billing',
+  path: '/my-billing',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
@@ -207,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/document': typeof AuthenticatedDocumentRoute
   '/ee-plan': typeof AuthenticatedEePlanRoute
   '/evidence': typeof AuthenticatedEvidenceRoute
+  '/my-billing': typeof AuthenticatedMyBillingRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
@@ -238,6 +245,7 @@ export interface FileRoutesByTo {
   '/document': typeof AuthenticatedDocumentRoute
   '/ee-plan': typeof AuthenticatedEePlanRoute
   '/evidence': typeof AuthenticatedEvidenceRoute
+  '/my-billing': typeof AuthenticatedMyBillingRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
@@ -271,6 +279,7 @@ export interface FileRoutesById {
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
   '/_authenticated/ee-plan': typeof AuthenticatedEePlanRoute
   '/_authenticated/evidence': typeof AuthenticatedEvidenceRoute
+  '/_authenticated/my-billing': typeof AuthenticatedMyBillingRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
@@ -304,6 +313,7 @@ export interface FileRouteTypes {
     | '/document'
     | '/ee-plan'
     | '/evidence'
+    | '/my-billing'
     | '/onboarding'
     | '/plan'
     | '/progress'
@@ -335,6 +345,7 @@ export interface FileRouteTypes {
     | '/document'
     | '/ee-plan'
     | '/evidence'
+    | '/my-billing'
     | '/onboarding'
     | '/plan'
     | '/progress'
@@ -367,6 +378,7 @@ export interface FileRouteTypes {
     | '/_authenticated/document'
     | '/_authenticated/ee-plan'
     | '/_authenticated/evidence'
+    | '/_authenticated/my-billing'
     | '/_authenticated/onboarding'
     | '/_authenticated/plan'
     | '/_authenticated/progress'
@@ -508,6 +520,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEvidenceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/my-billing': {
+      id: '/_authenticated/my-billing'
+      path: '/my-billing'
+      fullPath: '/my-billing'
+      preLoaderRoute: typeof AuthenticatedMyBillingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/onboarding': {
       id: '/_authenticated/onboarding'
       path: '/onboarding'
@@ -628,6 +647,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
   AuthenticatedEePlanRoute: typeof AuthenticatedEePlanRoute
   AuthenticatedEvidenceRoute: typeof AuthenticatedEvidenceRoute
+  AuthenticatedMyBillingRoute: typeof AuthenticatedMyBillingRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
@@ -647,6 +667,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
   AuthenticatedEePlanRoute: AuthenticatedEePlanRoute,
   AuthenticatedEvidenceRoute: AuthenticatedEvidenceRoute,
+  AuthenticatedMyBillingRoute: AuthenticatedMyBillingRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
