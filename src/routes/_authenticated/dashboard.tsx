@@ -55,7 +55,7 @@ function Dashboard() {
   const [editing, setEditing] = useState(false);
   useEffect(() => {
     if (profile.data) { setSector(profile.data.sector ?? ""); setCounts((profile.data.counts ?? {}) as Counts); }
-    else if (profile.isSuccess) setEditing(true);
+    else if (profile.status === "success") setEditing(true);
   }, [profile.data, profile.isSuccess]);
 
   const saveWf = useMutation({
@@ -209,7 +209,7 @@ function Dashboard() {
                   <button className="text-left hover:text-primary" onClick={() => setOpenId(openId === r.id ? null : r.id)}>{r.title}<span className={`${mono} ml-2`}>{TOOL_LABEL[r.tool as Tool]}</span></button>
                   <button className="text-[12px] text-muted hover:text-destructive" onClick={() => delResult.mutate(r.id)}>Delete</button>
                 </div>
-                {openId === r.id && <div className="prose prose-sm mt-3 max-w-none text-foreground">{opened.data ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{opened.data.content}</ReactMarkdown> : "Loading…"}</div>}
+                {openId === r.id && <div className="prose prose-sm mt-3 max-w-none text-foreground">{opened.data?.content ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{opened.data.content}</ReactMarkdown> : "Loading…"}</div>}
               </li>))}</ul>)}
         </section>
       </div>
