@@ -36,7 +36,7 @@ const label = "mb-1.5 block font-[JetBrains_Mono] text-[10px] uppercase tracking
 
 function AssessPage() {
   const [f, setF] = useState({
-    sector: SECTORS[10], province: PROVINCES[0], employees: "", designated: true,
+    sector: "Manufacturing", province: PROVINCES[0], employees: "", designated: true,
     demographics: "", planPeriod: "", eea2: "Unsure", committee: "Unsure",
     sectorTargets: "Unsure", barriers: "Unsure", planNotes: "",
   });
