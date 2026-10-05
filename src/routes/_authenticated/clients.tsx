@@ -204,7 +204,21 @@ function Clients() {
           <section className={`${card} mt-6`} aria-label="Client register">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className={mono}>Client register</p>
-              <p className="text-[13px] text-muted">{registered.length} client{registered.length === 1 ? "" : "s"}</p>
+              <div className="flex items-center gap-3">
+                <label className="flex items-center gap-2 text-[13px] text-muted">
+                  <span className={mono}>Sort</span>
+                  <select
+                    className={`${input} w-auto`}
+                    value={sort}
+                    onChange={(e) => setSort(e.target.value as "az" | "newest")}
+                    aria-label="Sort clients"
+                  >
+                    <option value="az">Company A–Z</option>
+                    <option value="newest">Newest first</option>
+                  </select>
+                </label>
+                <p className="text-[13px] text-muted">{registered.length} client{registered.length === 1 ? "" : "s"}</p>
+              </div>
             </div>
             {!rows.data?.length ? (
               <p className="mt-3 text-[14px] text-muted">No clients yet. Use the form above to create the first login.</p>
