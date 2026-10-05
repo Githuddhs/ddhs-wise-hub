@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as TargetsRouteImport } from './routes/targets'
 import { Route as AuthenticatedAssessRouteImport } from './routes/_authenticated/assess'
 import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
@@ -53,6 +54,11 @@ const AuthenticatedAssessRoute = AuthenticatedAssessRouteImport.update({
 const AuthenticatedCommitteeRoute = AuthenticatedCommitteeRouteImport.update({
   id: '/committee',
   path: '/committee',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDocumentRoute = AuthenticatedDocumentRouteImport.update({
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/targets': typeof TargetsRoute
   '/assess': typeof AuthenticatedAssessRoute
   '/committee': typeof AuthenticatedCommitteeRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/targets': typeof TargetsRoute
   '/assess': typeof AuthenticatedAssessRoute
   '/committee': typeof AuthenticatedCommitteeRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/targets': typeof TargetsRoute
   '/_authenticated/assess': typeof AuthenticatedAssessRoute
   '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
@@ -168,6 +177,7 @@ export interface FileRouteTypes {
     | '/targets'
     | '/assess'
     | '/committee'
+    | '/dashboard'
     | '/document'
     | '/plan'
     | '/progress'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
     | '/targets'
     | '/assess'
     | '/committee'
+    | '/dashboard'
     | '/document'
     | '/plan'
     | '/progress'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/targets'
     | '/_authenticated/assess'
     | '/_authenticated/committee'
+    | '/_authenticated/dashboard'
     | '/_authenticated/document'
     | '/_authenticated/plan'
     | '/_authenticated/progress'
@@ -270,6 +282,13 @@ declare module '@tanstack/react-router' {
       path: '/committee'
       fullPath: '/committee'
       preLoaderRoute: typeof AuthenticatedCommitteeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/document': {
@@ -348,6 +367,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAssessRoute: typeof AuthenticatedAssessRoute
   AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
@@ -357,6 +377,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAssessRoute: AuthenticatedAssessRoute,
   AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
