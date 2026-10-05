@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssessRouteImport } from './routes/assess'
+import { Route as PlanRouteImport } from './routes/plan'
 import { Route as ApiAssessRouteImport } from './routes/api/assess'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const AssessRoute = AssessRouteImport.update({
   id: '/assess',
   path: '/assess',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanRoute = PlanRouteImport.update({
+  id: '/plan',
+  path: '/plan',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAssessRoute = ApiAssessRouteImport.update({
@@ -38,12 +44,14 @@ const ApiPlanRoute = ApiPlanRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assess': typeof AssessRoute
+  '/plan': typeof PlanRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/plan': typeof ApiPlanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assess': typeof AssessRoute
+  '/plan': typeof PlanRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/plan': typeof ApiPlanRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/assess': typeof AssessRoute
+  '/plan': typeof PlanRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/plan': typeof ApiPlanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assess' | '/api/assess' | '/api/plan'
+  fullPaths: '/' | '/assess' | '/plan' | '/api/assess' | '/api/plan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assess' | '/api/assess' | '/api/plan'
-  id: '__root__' | '/' | '/assess' | '/api/assess' | '/api/plan'
+  to: '/' | '/assess' | '/plan' | '/api/assess' | '/api/plan'
+  id: '__root__' | '/' | '/assess' | '/plan' | '/api/assess' | '/api/plan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssessRoute: typeof AssessRoute
+  PlanRoute: typeof PlanRoute
   ApiAssessRoute: typeof ApiAssessRoute
   ApiPlanRoute: typeof ApiPlanRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/assess'
       fullPath: '/assess'
       preLoaderRoute: typeof AssessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plan': {
+      id: '/plan'
+      path: '/plan'
+      fullPath: '/plan'
+      preLoaderRoute: typeof PlanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/assess': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssessRoute: AssessRoute,
+  PlanRoute: PlanRoute,
   ApiAssessRoute: ApiAssessRoute,
   ApiPlanRoute: ApiPlanRoute,
 }
