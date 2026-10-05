@@ -37,6 +37,7 @@ import { Route as ApiPlanRouteImport } from './routes/api/plan'
 import { Route as ApiProgressRouteImport } from './routes/api/progress'
 import { Route as ApiReviewRouteImport } from './routes/api/review'
 import { Route as ApiPublicActionRemindersRouteImport } from './routes/api/public/action-reminders'
+import { Route as ApiPublicPayfastItnRouteImport } from './routes/api/public/payfast-itn'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
@@ -179,6 +180,11 @@ const ApiPublicActionRemindersRoute =
     path: '/api/public/action-reminders',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicPayfastItnRoute = ApiPublicPayfastItnRouteImport.update({
+  id: '/api/public/payfast-itn',
+  path: '/api/public/payfast-itn',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
   '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
+  '/api/public/payfast-itn': typeof ApiPublicPayfastItnRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -244,6 +251,7 @@ export interface FileRoutesByTo {
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
   '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
+  '/api/public/payfast-itn': typeof ApiPublicPayfastItnRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -276,6 +284,7 @@ export interface FileRoutesById {
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
   '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
+  '/api/public/payfast-itn': typeof ApiPublicPayfastItnRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -308,6 +317,7 @@ export interface FileRouteTypes {
     | '/api/progress'
     | '/api/review'
     | '/api/public/action-reminders'
+    | '/api/public/payfast-itn'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -338,6 +348,7 @@ export interface FileRouteTypes {
     | '/api/progress'
     | '/api/review'
     | '/api/public/action-reminders'
+    | '/api/public/payfast-itn'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -369,6 +380,7 @@ export interface FileRouteTypes {
     | '/api/progress'
     | '/api/review'
     | '/api/public/action-reminders'
+    | '/api/public/payfast-itn'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -385,6 +397,7 @@ export interface RootRouteChildren {
   ApiProgressRoute: typeof ApiProgressRoute
   ApiReviewRoute: typeof ApiReviewRoute
   ApiPublicActionRemindersRoute: typeof ApiPublicActionRemindersRoute
+  ApiPublicPayfastItnRoute: typeof ApiPublicPayfastItnRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
@@ -586,6 +599,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicActionRemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/payfast-itn': {
+      id: '/api/public/payfast-itn'
+      path: '/api/public/payfast-itn'
+      fullPath: '/api/public/payfast-itn'
+      preLoaderRoute: typeof ApiPublicPayfastItnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -650,6 +670,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiProgressRoute: ApiProgressRoute,
   ApiReviewRoute: ApiReviewRoute,
   ApiPublicActionRemindersRoute: ApiPublicActionRemindersRoute,
+  ApiPublicPayfastItnRoute: ApiPublicPayfastItnRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
