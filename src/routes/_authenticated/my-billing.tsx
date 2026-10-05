@@ -7,7 +7,7 @@ import { getMyBilling, startPayfastCheckout, type MyInvoice } from "@/lib/payfas
 import { zar } from "@/lib/invoice-pdf";
 
 export const Route = createFileRoute("/_authenticated/my-billing")({
-  validateSearch: (s: Record<string, unknown>) => ({ paid: s["paid"] ? 1 : undefined, cancelled: s["cancelled"] ? 1 : undefined }),
+  validateSearch: (s: Record<string, unknown>): { paid?: 1 | undefined; cancelled?: 1 | undefined } => ({ paid: s["paid"] ? 1 : undefined, cancelled: s["cancelled"] ? 1 : undefined }),
   head: () => ({
     meta: [
       { title: "Billing — DDHS Equity Intelligence" },
