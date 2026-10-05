@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
+import { SECTOR_NAMES } from "@/lib/sector-targets";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -21,6 +22,7 @@ const MAX = 60000;
 
 function ReviewPage() {
   const [file, setFile] = useState<File | null>(null);
+  const [sector, setSector] = useState("");
   const [chars, setChars] = useState(0);
   const [out, setOut] = useState("");
   const [err, setErr] = useState("");
@@ -42,7 +44,7 @@ function ReviewPage() {
       setChars(text.length);
       if (text.length > MAX) text = text.slice(0, MAX);
       setStage("Checking against Section 20…");
-      const res = await fetch("/api/review", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify({ fileName: file.name.slice(0, 200), text }) });
+      const res = await fetch("/api/review", { method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal, body: JSON.stringify({ fileName: file.name.slice(0, 200), text, ...(sector ? { sector } : {}) }) });
       if (!res.ok || !res.body) { const j = await res.json().catch(() => ({})); throw new Error(j.error || "Something went wrong."); }
       const reader = res.body.getReader(); const dec = new TextDecoder(); let buf = "";
       for (;;) {
@@ -86,6 +88,13 @@ function ReviewPage() {
               <span className="font-[Fraunces] text-[18px]">{file ? file.name : "Choose your draft EE Plan"}</span>
               <span className="mt-1 text-[12px] text-muted">{file ? `${Math.round(file.size / 1024)} KB` : ".docx, .pdf, .txt — up to 15 MB"}</span>
               <input id="file" type="file" accept=".docx,.pdf,.txt,.md" className="sr-only" onChange={(e) => { setFile(e.target.files?.[0] ?? null); setOut(""); setErr(""); }} />
+            </label>
+            <label className="block text-[13px]">
+              <span className="font-[JetBrains_Mono] text-[11px] uppercase tracking-wider text-muted">Your sector (s15A targets)</span>
+              <select value={sector} onChange={(e) => setSector(e.target.value)} className="mt-1.5 w-full rounded-lg border border-line/70 bg-panel/60 px-3 py-2.5">
+                <option value="">Not sure / skip target check</option>
+                {SECTOR_NAMES.map((s) => <option key={s} value={s}>{s}</option>)}
+              </select>
             </label>
             {chars > MAX && <p className="text-[12px] text-muted">Long document: only the first {MAX.toLocaleString()} characters were reviewed.</p>}
             <div className="flex gap-3">

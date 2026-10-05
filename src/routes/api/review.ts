@@ -1,10 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
+import { targetsText } from "@/lib/sector-targets";
+
 const schema = z.object({
   fileName: z.string().max(200),
   text: z.string().min(200).max(60000),
+  sector: z.string().max(120).optional(),
 });
+
+const SECTOR_RULES = `
+For sector targets: compare the draft's numerical goals for each occupational level (Top, Senior, Professionally qualified & middle management, Skilled technical) and disability against the exact gazetted figures below. Add a "## Sector target comparison" section after the checklist: Markdown table Level | Gazetted target (male / female / total) | Draft's goal | Gap. Mark "Not stated" where the draft gives no figure, and flag goals below target without documented reasonable grounds.`;
 
 const SYSTEM = `You are a senior South African Employment Equity compliance reviewer.
 Review the uploaded draft Employment Equity Plan against section 20 of the Employment Equity Act 55 of 1998 as amended, the EE Regulations and the Code of Good Practice on the Preparation, Implementation and Monitoring of EE Plans. Also check consistency with s15 (affirmative action measures incl. reasonable accommodation), s15A sector targets, s16-17 consultation, s19 analysis, s24 assigned senior manager.
@@ -56,7 +62,7 @@ export const Route = createFileRoute("/api/review")({
         const prompt = `Draft EE Plan file: ${input.fileName}\n<document>\n${input.text}\n</document>`;
         const result = streamText({
           model: openai.responses("openai/gpt-6-astra"),
-          system: SYSTEM,
+          system: input.sector ? `${SYSTEM}\n${SECTOR_RULES}\n${targetsText(input.sector)}` : SYSTEM,
           prompt,
           maxRetries: 0,
           abortSignal: request.signal,
