@@ -18,3 +18,6 @@
 - AI tool pages and the committee tracker live under src/routes/_authenticated/; each /api AI route verifies the bearer token via src/lib/require-user.server.ts and pages call it through authFetch; tools are signed-in only.
 - Daily pg_cron job POSTs /api/public/action-reminders with a token from the service-role-only cron_tokens table; route emails one digest and stamps reminded_on to avoid repeats.
 - Committee data (members, meetings, actions) is stored per user in Cloud tables with owner-only RLS; profiles auto-create on signup via trigger.
+- Employee master records (employees table, owner-only RLS, no names/ID numbers) are the single source for EEA12 analysis; src/lib/eea12.ts holds the pure analysis, validation and import-mapping functions shared by workforce, analysis, ee-plan and dashboard pages.
+- The structured EEA13 plan (ee_plans 1 per user + plan_barriers/goals/objectives/measures) drives the calendar, reminder digest (plan_measures.reminded_on) and the PDF/Word exports; keeps one source of truth for the plan.
+- Evidence files live in the private `evidence` bucket under {user_id}/{item_id}/vN-*; evidence_versions keeps every version, evidence_links ties items to measures/actions/decisions, and write_audit triggers fill audit_log (read-only to owners).
