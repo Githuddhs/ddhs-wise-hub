@@ -25,6 +25,7 @@ import { Route as ApiDemoRequestRouteImport } from './routes/api/demo-request'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
 import { Route as ApiProgressRouteImport } from './routes/api/progress'
 import { Route as ApiReviewRouteImport } from './routes/api/review'
+import { Route as ApiPublicActionRemindersRouteImport } from './routes/api/public/action-reminders'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
@@ -106,6 +107,12 @@ const ApiReviewRoute = ApiReviewRouteImport.update({
   path: '/api/review',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicActionRemindersRoute =
+  ApiPublicActionRemindersRouteImport.update({
+    id: '/api/public/action-reminders',
+    path: '/api/public/action-reminders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -129,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
+  '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -147,6 +155,7 @@ export interface FileRoutesByTo {
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
+  '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -167,6 +176,7 @@ export interface FileRoutesById {
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
+  '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
+    | '/api/public/action-reminders'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
+    | '/api/public/action-reminders'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -224,6 +236,7 @@ export interface FileRouteTypes {
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
+    | '/api/public/action-reminders'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -237,6 +250,7 @@ export interface RootRouteChildren {
   ApiPlanRoute: typeof ApiPlanRoute
   ApiProgressRoute: typeof ApiProgressRoute
   ApiReviewRoute: typeof ApiReviewRoute
+  ApiPublicActionRemindersRoute: typeof ApiPublicActionRemindersRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
@@ -354,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/action-reminders': {
+      id: '/api/public/action-reminders'
+      path: '/api/public/action-reminders'
+      fullPath: '/api/public/action-reminders'
+      preLoaderRoute: typeof ApiPublicActionRemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -397,6 +418,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlanRoute: ApiPlanRoute,
   ApiProgressRoute: ApiProgressRoute,
   ApiReviewRoute: ApiReviewRoute,
+  ApiPublicActionRemindersRoute: ApiPublicActionRemindersRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
