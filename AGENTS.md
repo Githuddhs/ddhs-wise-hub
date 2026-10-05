@@ -21,3 +21,4 @@
 - Employee master records (employees table, owner-only RLS, no names/ID numbers) are the single source for EEA12 analysis; src/lib/eea12.ts holds the pure analysis, validation and import-mapping functions shared by workforce, analysis, ee-plan and dashboard pages.
 - The structured EEA13 plan (ee_plans 1 per user + plan_barriers/goals/objectives/measures) drives the calendar, reminder digest (plan_measures.reminded_on) and the PDF/Word exports; keeps one source of truth for the plan.
 - Evidence files live in the private `evidence` bucket under {user_id}/{item_id}/vN-*; evidence_versions keeps every version, evidence_links ties items to measures/actions/decisions, and write_audit triggers fill audit_log (read-only to owners).
+- DDHS staff access is a row in user_roles checked by the security-definer has_role function — never a role column on profiles; staff-only server functions re-check the role on every call, and client accounts are tracked in client_accounts.
