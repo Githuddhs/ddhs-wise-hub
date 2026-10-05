@@ -10,3 +10,6 @@
 - [x] Plan Review: compare draft against chosen sector's s15A job-level targets
 - [x] Sign up / sign in (email + Google, profiles, tools gated)
 - [x] EE committee page (members, meetings, actions, progress)
+
+- [ ] Verify ddhs.co.za + set Primary — blocked: domain not yet added in Project Settings → Domains; _lovable TXT records pending
+- [x] Equity Intelligence dashboard
