@@ -18,6 +18,20 @@ export interface TemplateEntry {
  *   // then add to TEMPLATES: 'welcome': welcomeTemplate
  */
 export const TEMPLATES: Record<string, TemplateEntry> = {
-  // Add templates here as they are created, e.g.:
-  // 'welcome': welcomeTemplate,
+  'demo-request': {
+    component: DemoRequestEmail,
+    subject: (data) => `Demo request — ${data.company}`,
+    displayName: 'Demo request notification',
+    previewData: {
+      full_name: 'Thandi Nkosi',
+      work_email: 'thandi@example.co.za',
+      phone: '+27 82 000 0000',
+      company: 'Example Manufacturing (Pty) Ltd',
+      job_title: 'HR Director',
+      company_size: '150–499',
+      message: 'We need help with our EEA2 submission.',
+    },
+    // Fixed recipient: internal demo-request alerts.
+    to: 'sdm@ddhs.co.za',
+  },
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 
 const schema = z.object({
   full_name: z.string().trim().min(2, "Please enter your full name").max(100),
@@ -34,10 +33,14 @@ export function DemoForm() {
     }
     setErrs({}); setState("sending");
     const d = r.data;
-    const { error } = await supabase.from("demo_requests").insert({
-      ...d, phone: d.phone || null, job_title: d.job_title || null, message: d.message || null,
+    const res = await fetch("/api/demo-request", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...d, phone: d.phone || null, job_title: d.job_title || null, message: d.message || null,
+      }),
     });
-    setState(error ? "error" : "done");
+    setState(res.ok ? "done" : "error");
   }
 
   if (state === "done")
