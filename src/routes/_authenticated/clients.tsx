@@ -231,7 +231,7 @@ function Clients() {
                     ))}</tr>
                   </thead>
                   <tbody>
-                    {list.map((r) => (
+                    {sorted.map((r) => (
                       <tr key={r.user_id} className="border-t border-line/50 align-top">
                         <td className="py-3 pr-4">
                           <span className="block font-medium">{r.company || "—"}</span>
