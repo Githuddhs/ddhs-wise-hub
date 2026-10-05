@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as TargetsRouteImport } from './routes/targets'
 import { Route as AuthenticatedAssessRouteImport } from './routes/_authenticated/assess'
+import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
 import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
@@ -47,6 +48,11 @@ const TargetsRoute = TargetsRouteImport.update({
 const AuthenticatedAssessRoute = AuthenticatedAssessRouteImport.update({
   id: '/assess',
   path: '/assess',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCommitteeRoute = AuthenticatedCommitteeRouteImport.update({
+  id: '/committee',
+  path: '/committee',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDocumentRoute = AuthenticatedDocumentRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/assess': typeof AuthenticatedAssessRoute
+  '/committee': typeof AuthenticatedCommitteeRoute
   '/document': typeof AuthenticatedDocumentRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/assess': typeof AuthenticatedAssessRoute
+  '/committee': typeof AuthenticatedCommitteeRoute
   '/document': typeof AuthenticatedDocumentRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/progress': typeof AuthenticatedProgressRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/_authenticated/assess': typeof AuthenticatedAssessRoute
+  '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/progress': typeof AuthenticatedProgressRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/assess'
+    | '/committee'
     | '/document'
     | '/plan'
     | '/progress'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/assess'
+    | '/committee'
     | '/document'
     | '/plan'
     | '/progress'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/_authenticated/assess'
+    | '/_authenticated/committee'
     | '/_authenticated/document'
     | '/_authenticated/plan'
     | '/_authenticated/progress'
@@ -251,6 +263,13 @@ declare module '@tanstack/react-router' {
       path: '/assess'
       fullPath: '/assess'
       preLoaderRoute: typeof AuthenticatedAssessRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/committee': {
+      id: '/_authenticated/committee'
+      path: '/committee'
+      fullPath: '/committee'
+      preLoaderRoute: typeof AuthenticatedCommitteeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/document': {
@@ -328,6 +347,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAssessRoute: typeof AuthenticatedAssessRoute
+  AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
@@ -336,6 +356,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAssessRoute: AuthenticatedAssessRoute,
+  AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedProgressRoute: AuthenticatedProgressRoute,
