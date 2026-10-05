@@ -1,6 +1,7 @@
 import { targetsText } from "@/lib/sector-targets";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { requireUser } from "@/lib/require-user.server";
 
 const schema = z.object({
   assessment: z.string().min(20).max(12000),
@@ -32,6 +33,8 @@ export const Route = createFileRoute("/api/plan")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const denied = await requireUser(request);
+        if (denied) return denied;
         let input: z.infer<typeof schema>;
         try {
           input = schema.parse(await request.json());

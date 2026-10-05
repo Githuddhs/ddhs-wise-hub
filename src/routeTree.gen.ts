@@ -10,12 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AssessRouteImport } from './routes/assess'
-import { Route as DocumentRouteImport } from './routes/document'
-import { Route as PlanRouteImport } from './routes/plan'
-import { Route as ProgressRouteImport } from './routes/progress'
-import { Route as ReviewRouteImport } from './routes/review'
 import { Route as TargetsRouteImport } from './routes/targets'
+import { Route as AuthenticatedAssessRouteImport } from './routes/_authenticated/assess'
+import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
+import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated/plan'
+import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
+import { Route as AuthenticatedReviewRouteImport } from './routes/_authenticated/review'
 import { Route as ApiAssessRouteImport } from './routes/api/assess'
 import { Route as ApiDemoRequestRouteImport } from './routes/api/demo-request'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
@@ -28,34 +28,34 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AssessRoute = AssessRouteImport.update({
-  id: '/assess',
-  path: '/assess',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DocumentRoute = DocumentRouteImport.update({
-  id: '/document',
-  path: '/document',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlanRoute = PlanRouteImport.update({
-  id: '/plan',
-  path: '/plan',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProgressRoute = ProgressRouteImport.update({
-  id: '/progress',
-  path: '/progress',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReviewRoute = ReviewRouteImport.update({
-  id: '/review',
-  path: '/review',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TargetsRoute = TargetsRouteImport.update({
   id: '/targets',
   path: '/targets',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAssessRoute = AuthenticatedAssessRouteImport.update({
+  id: '/_authenticated/assess',
+  path: '/assess',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDocumentRoute = AuthenticatedDocumentRouteImport.update({
+  id: '/_authenticated/document',
+  path: '/document',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
+  id: '/_authenticated/plan',
+  path: '/plan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedProgressRoute = AuthenticatedProgressRouteImport.update({
+  id: '/_authenticated/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedReviewRoute = AuthenticatedReviewRouteImport.update({
+  id: '/_authenticated/review',
+  path: '/review',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAssessRoute = ApiAssessRouteImport.update({
@@ -92,12 +92,12 @@ const LovableEmailTransactionalPreviewRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/assess': typeof AssessRoute
-  '/document': typeof DocumentRoute
-  '/plan': typeof PlanRoute
-  '/progress': typeof ProgressRoute
-  '/review': typeof ReviewRoute
   '/targets': typeof TargetsRoute
+  '/assess': typeof AuthenticatedAssessRoute
+  '/document': typeof AuthenticatedDocumentRoute
+  '/plan': typeof AuthenticatedPlanRoute
+  '/progress': typeof AuthenticatedProgressRoute
+  '/review': typeof AuthenticatedReviewRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
@@ -107,12 +107,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/assess': typeof AssessRoute
-  '/document': typeof DocumentRoute
-  '/plan': typeof PlanRoute
-  '/progress': typeof ProgressRoute
-  '/review': typeof ReviewRoute
   '/targets': typeof TargetsRoute
+  '/assess': typeof AuthenticatedAssessRoute
+  '/document': typeof AuthenticatedDocumentRoute
+  '/plan': typeof AuthenticatedPlanRoute
+  '/progress': typeof AuthenticatedProgressRoute
+  '/review': typeof AuthenticatedReviewRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
@@ -123,12 +123,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/assess': typeof AssessRoute
-  '/document': typeof DocumentRoute
-  '/plan': typeof PlanRoute
-  '/progress': typeof ProgressRoute
-  '/review': typeof ReviewRoute
   '/targets': typeof TargetsRoute
+  '/_authenticated/assess': typeof AuthenticatedAssessRoute
+  '/_authenticated/document': typeof AuthenticatedDocumentRoute
+  '/_authenticated/plan': typeof AuthenticatedPlanRoute
+  '/_authenticated/progress': typeof AuthenticatedProgressRoute
+  '/_authenticated/review': typeof AuthenticatedReviewRoute
   '/api/assess': typeof ApiAssessRoute
   '/api/demo-request': typeof ApiDemoRequestRoute
   '/api/plan': typeof ApiPlanRoute
@@ -140,12 +140,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/targets'
     | '/assess'
     | '/document'
     | '/plan'
     | '/progress'
     | '/review'
-    | '/targets'
     | '/api/assess'
     | '/api/demo-request'
     | '/api/plan'
@@ -155,12 +155,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/targets'
     | '/assess'
     | '/document'
     | '/plan'
     | '/progress'
     | '/review'
-    | '/targets'
     | '/api/assess'
     | '/api/demo-request'
     | '/api/plan'
@@ -170,12 +170,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/assess'
-    | '/document'
-    | '/plan'
-    | '/progress'
-    | '/review'
     | '/targets'
+    | '/_authenticated/assess'
+    | '/_authenticated/document'
+    | '/_authenticated/plan'
+    | '/_authenticated/progress'
+    | '/_authenticated/review'
     | '/api/assess'
     | '/api/demo-request'
     | '/api/plan'
@@ -186,12 +186,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AssessRoute: typeof AssessRoute
-  DocumentRoute: typeof DocumentRoute
-  PlanRoute: typeof PlanRoute
-  ProgressRoute: typeof ProgressRoute
-  ReviewRoute: typeof ReviewRoute
   TargetsRoute: typeof TargetsRoute
+  AuthenticatedAssessRoute: typeof AuthenticatedAssessRoute
+  AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
+  AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
+  AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
+  AuthenticatedReviewRoute: typeof AuthenticatedReviewRoute
   ApiAssessRoute: typeof ApiAssessRoute
   ApiDemoRequestRoute: typeof ApiDemoRequestRoute
   ApiPlanRoute: typeof ApiPlanRoute
@@ -209,46 +209,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assess': {
-      id: '/assess'
-      path: '/assess'
-      fullPath: '/assess'
-      preLoaderRoute: typeof AssessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/document': {
-      id: '/document'
-      path: '/document'
-      fullPath: '/document'
-      preLoaderRoute: typeof DocumentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/plan': {
-      id: '/plan'
-      path: '/plan'
-      fullPath: '/plan'
-      preLoaderRoute: typeof PlanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/progress': {
-      id: '/progress'
-      path: '/progress'
-      fullPath: '/progress'
-      preLoaderRoute: typeof ProgressRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/review': {
-      id: '/review'
-      path: '/review'
-      fullPath: '/review'
-      preLoaderRoute: typeof ReviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/targets': {
       id: '/targets'
       path: '/targets'
       fullPath: '/targets'
       preLoaderRoute: typeof TargetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/assess': {
+      id: '/_authenticated/assess'
+      path: '/assess'
+      fullPath: '/assess'
+      preLoaderRoute: typeof AuthenticatedAssessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/document': {
+      id: '/_authenticated/document'
+      path: '/document'
+      fullPath: '/document'
+      preLoaderRoute: typeof AuthenticatedDocumentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/plan': {
+      id: '/_authenticated/plan'
+      path: '/plan'
+      fullPath: '/plan'
+      preLoaderRoute: typeof AuthenticatedPlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/progress': {
+      id: '/_authenticated/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof AuthenticatedProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/review': {
+      id: '/_authenticated/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof AuthenticatedReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/assess': {
@@ -298,12 +298,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AssessRoute: AssessRoute,
-  DocumentRoute: DocumentRoute,
-  PlanRoute: PlanRoute,
-  ProgressRoute: ProgressRoute,
-  ReviewRoute: ReviewRoute,
   TargetsRoute: TargetsRoute,
+  AuthenticatedAssessRoute: AuthenticatedAssessRoute,
+  AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
+  AuthenticatedPlanRoute: AuthenticatedPlanRoute,
+  AuthenticatedProgressRoute: AuthenticatedProgressRoute,
+  AuthenticatedReviewRoute: AuthenticatedReviewRoute,
   ApiAssessRoute: ApiAssessRoute,
   ApiDemoRequestRoute: ApiDemoRequestRoute,
   ApiPlanRoute: ApiPlanRoute,

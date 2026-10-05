@@ -1,3 +1,4 @@
+import { authFetch } from "@/lib/auth-fetch";
 import { SECTOR_NAMES } from "@/lib/sector-targets";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
@@ -54,7 +55,7 @@ function AssessPage() {
     setErr(""); setOut(""); setBusy(true);
     const ac = new AbortController(); ctrl.current = ac;
     try {
-      const res = await fetch("/api/assess", {
+      const res = await authFetch("/api/assess", {
         method: "POST", headers: { "Content-Type": "application/json" }, signal: ac.signal,
         body: JSON.stringify({ ...f, employees: n, levels }),
       });
