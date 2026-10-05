@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { DemoForm } from "@/components/DemoForm";
 import glassPanels from "@/assets/glass-panels.jpg";
 
 export const Route = createFileRoute("/")({
@@ -41,6 +42,9 @@ function Index() {
             <a href="#trust" className="transition-colors hover:text-foreground">
               Trust
             </a>
+            <Link to="/assess" className="transition-colors hover:text-foreground">
+              Gap Assessment
+            </Link>
             <a href="#demo" className="transition-colors hover:text-foreground">
               Contact
             </a>
@@ -77,12 +81,12 @@ function Index() {
               >
                 Request a demo
               </a>
-              <a
-                href="#capabilities"
+              <Link
+                to="/assess"
                 className="rounded-full border border-line/70 bg-glass/50 px-6 py-3 text-[14px] font-medium backdrop-blur-md transition-colors hover:bg-glass/80"
               >
-                See the platform
-              </a>
+                Try the free gap assessment
+              </Link>
             </div>
             <div className="rise mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-[min(1vw,14px)] border border-line/60 bg-line/60 backdrop-blur-md [animation-delay:280ms]">
               <div className="bg-glass/70 px-4 py-4">
