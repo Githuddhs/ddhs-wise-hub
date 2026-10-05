@@ -111,7 +111,10 @@ function PlanPage() {
             <div className="flex items-center justify-between">
               <h2 className="font-[Fraunces] text-[22px]">Implementation plan</h2>
               {out && !busy && (
-                <button onClick={() => { navigator.clipboard.writeText(out); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="rounded-full border border-line/70 px-3 py-1 text-[12px]">{copied ? "Copied" : "Copy"}</button>
+                <div className="flex gap-2">
+                  <button onClick={() => { navigator.clipboard.writeText(out); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="rounded-full border border-line/70 px-3 py-1 text-[12px]">{copied ? "Copied" : "Copy"}</button>
+                  <button onClick={async () => { const { exportPlanPdf } = await import("@/lib/plan-pdf"); await exportPlanPdf(out, f); }} className="rounded-full bg-primary px-3 py-1 text-[12px] font-medium text-primary-foreground">Download PDF</button>
+                </div>
               )}
             </div>
             {err && <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-[14px] text-destructive">{err}</p>}
@@ -120,6 +123,9 @@ function PlanPage() {
               <div className="mt-4 space-y-3 overflow-x-auto text-[14px] leading-relaxed [&_h2]:mt-6 [&_h2]:font-[Fraunces] [&_h2]:text-[18px] [&_li]:ml-5 [&_ol]:list-decimal [&_ul]:list-disc [&_strong]:font-semibold [&_table]:w-full [&_table]:text-[12.5px] [&_th]:border-b [&_th]:border-line [&_th]:p-1.5 [&_th]:text-left [&_td]:border-b [&_td]:border-line/50 [&_td]:p-1.5 [&_td]:align-top">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{out}</ReactMarkdown>
               </div>
+            )}
+            {out && !busy && (
+              <Link to="/progress" onClick={() => sessionStorage.setItem("ddhs-plan", out)} className="mt-6 inline-block rounded-full bg-primary px-5 py-2.5 text-[13px] font-medium text-primary-foreground">Track progress &amp; risks →</Link>
             )}
             <p className="mt-6 border-t border-line/60 pt-3 text-[11px] text-muted">Guidance only — not legal advice.</p>
           </section>

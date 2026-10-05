@@ -11,5 +11,5 @@
 
 # Agent rules
 - AI calls go through a streaming server route (src/routes/api/assess.ts) on the Lovable AI Gateway Responses API; keeps the key server-side and streams NDJSON to the page.
-- Each AI tool (assess, plan) has its own streaming route under src/routes/api/ sharing the same gateway pattern; keeps prompts isolated.
+- Each AI tool (assess, plan, progress) has its own streaming route under src/routes/api/ sharing the same gateway pattern; keeps prompts isolated.
 - Demo requests are stored in a Cloud table with insert-only public access; nobody can read submissions from the browser.
