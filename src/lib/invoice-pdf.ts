@@ -107,13 +107,13 @@ export async function exportInvoicePdf(inv: InvoicePdf) {
 
   // Banking details
   y += 12;
-  const rows = (
+  const rows = ([
     ["Pay by EFT into", inv.account_name],
     ["Bank", inv.bank_name],
     ["Account number", inv.account_number],
     ["Branch code", inv.branch_code],
     ["Use as reference", inv.number],
-  ) as [string, string][]).filter((r) => r[1]);
+  ] as [string, string][]).filter((r) => r[1]);
   const boxH = 30 + rows.length * 15;
   if (y + boxH > H - 70) { doc.addPage(); y = 56; }
   doc.setFillColor(248, 250, 252);
