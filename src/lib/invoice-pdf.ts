@@ -107,7 +107,7 @@ export async function exportInvoicePdf(inv: InvoicePdf) {
 
   // Banking details
   y += 12;
-  const rows = [
+  const rows: [string, string][] = [
     ["Pay by EFT into", inv.account_name],
     ["Bank", inv.bank_name],
     ["Account number", inv.account_number],

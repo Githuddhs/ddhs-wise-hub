@@ -18,7 +18,7 @@ import {
 } from "@/lib/billing.functions";
 import { listClients, type ClientSummary } from "@/lib/admin.functions";
 import { exportInvoicePdf, zar } from "@/lib/invoice-pdf";
-import { btn, card, input, must, primaryBtn, todayIso } from "@/lib/ui";
+import { btn, card, input, primaryBtn, todayIso } from "@/lib/ui";
 
 const FILTERS = ["Outstanding", "Overdue", "Paid", "Voided", "All"] as const;
 type Filter = (typeof FILTERS)[number];
@@ -261,7 +261,7 @@ function BillingPage() {
               <p className="mt-1 text-xs text-muted-foreground">{vatNote}</p>
               <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <label className="block">
-                  <span className="text-xs font-medium text-foreground">{must("Client")}</span>
+                  <span className="text-xs font-medium text-foreground">{req("Client")}</span>
                   <select className={`${input} mt-1`} value={pick} onChange={(e) => chooseClient(e.target.value)}>
                     <option value="">Choose a client…</option>
                     {clientRows.map((c) => (
@@ -272,14 +272,14 @@ function BillingPage() {
                   </select>
                 </label>
                 <label className="block">
-                  <span className="text-xs font-medium text-foreground">{must("Billing")}</span>
+                  <span className="text-xs font-medium text-foreground">{req("Billing")}</span>
                   <select className={`${input} mt-1`} value={cycle} onChange={(e) => chooseCycle(e.target.value as "monthly" | "annual")}>
                     <option value="monthly">Monthly subscription</option>
                     <option value="annual">Annual subscription</option>
                   </select>
                 </label>
                 <label className="block">
-                  <span className="text-xs font-medium text-foreground">{must("Amount")}</span>
+                  <span className="text-xs font-medium text-foreground">{req("Amount")}</span>
                   <input
                     className={`${input} mt-1`}
                     type="number"
@@ -291,7 +291,7 @@ function BillingPage() {
                   />
                 </label>
                 <label className="block sm:col-span-2">
-                  <span className="text-xs font-medium text-foreground">{must("Description")}</span>
+                  <span className="text-xs font-medium text-foreground">{req("Description")}</span>
                   <input className={`${input} mt-1`} value={desc} onChange={(e) => setDesc(e.target.value)} />
                 </label>
                 <label className="block">
@@ -299,7 +299,7 @@ function BillingPage() {
                   <input className={`${input} mt-1`} value={period} onChange={(e) => setPeriod(e.target.value)} />
                 </label>
                 <label className="block">
-                  <span className="text-xs font-medium text-foreground">{must("Invoice date")}</span>
+                  <span className="text-xs font-medium text-foreground">{req("Invoice date")}</span>
                   <input
                     className={`${input} mt-1`}
                     type="date"
@@ -311,7 +311,7 @@ function BillingPage() {
                   />
                 </label>
                 <label className="block">
-                  <span className="text-xs font-medium text-foreground">{must("Due by")}</span>
+                  <span className="text-xs font-medium text-foreground">{req("Due by")}</span>
                   <input className={`${input} mt-1`} type="date" value={due} onChange={(e) => setDue(e.target.value)} />
                 </label>
                 <div className="flex items-end">

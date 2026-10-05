@@ -213,7 +213,7 @@ export const updateInvoice = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await requireAdmin(context.supabase, context.userId);
-    const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    const patch: Database["public"]["Tables"]["invoices"]["Update"] = { updated_at: new Date().toISOString() };
     if (data.paid_on !== undefined) patch.paid_on = data.paid_on;
     if (data.paid_method !== undefined) patch.paid_method = data.paid_method;
     if (data.status !== undefined) patch.status = data.status;
