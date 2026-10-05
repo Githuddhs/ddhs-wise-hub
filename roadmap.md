@@ -21,4 +21,5 @@
 - [x] MVP: evidence repository, decisions, audit trail
 - [x] MVP: executive dashboard upgrade
 - [x] Client onboarding: staff register, create login + email handover, open client account
+- [ ] DG review module — scope pending user's answer
 - [ ] Clarify user's "@" message — waiting on user
