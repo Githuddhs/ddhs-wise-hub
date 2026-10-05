@@ -87,6 +87,7 @@ export type Database = {
         Row: {
           annual_fee: number | null
           billing_email: string
+          billing_status: string
           company: string
           contact_name: string
           created_at: string
@@ -94,6 +95,7 @@ export type Database = {
           email: string
           monthly_fee: number | null
           note: string
+          paid_through: string | null
           status: string
           updated_at: string
           user_id: string
@@ -102,6 +104,7 @@ export type Database = {
         Insert: {
           annual_fee?: number | null
           billing_email?: string
+          billing_status?: string
           company?: string
           contact_name?: string
           created_at?: string
@@ -109,6 +112,7 @@ export type Database = {
           email?: string
           monthly_fee?: number | null
           note?: string
+          paid_through?: string | null
           status?: string
           updated_at?: string
           user_id: string
@@ -117,6 +121,7 @@ export type Database = {
         Update: {
           annual_fee?: number | null
           billing_email?: string
+          billing_status?: string
           company?: string
           contact_name?: string
           created_at?: string
@@ -124,6 +129,7 @@ export type Database = {
           email?: string
           monthly_fee?: number | null
           note?: string
+          paid_through?: string | null
           status?: string
           updated_at?: string
           user_id?: string
@@ -640,6 +646,79 @@ export type Database = {
           vat_rate?: number
         }
         Relationships: []
+      }
+      payfast_payments: {
+        Row: {
+          amount_gross: number | null
+          invoice_id: string | null
+          payment_status: string
+          pf_payment_id: string
+          received_at: string
+          user_id: string | null
+        }
+        Insert: {
+          amount_gross?: number | null
+          invoice_id?: string | null
+          payment_status: string
+          pf_payment_id: string
+          received_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount_gross?: number | null
+          invoice_id?: string | null
+          payment_status?: string
+          pf_payment_id?: string
+          received_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payfast_payments_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payfast_subscriptions: {
+        Row: {
+          first_invoice_id: string | null
+          last_payment_at: string | null
+          recurring_amount: number | null
+          status: string
+          token: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          first_invoice_id?: string | null
+          last_payment_at?: string | null
+          recurring_amount?: number | null
+          status?: string
+          token?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          first_invoice_id?: string | null
+          last_payment_at?: string | null
+          recurring_amount?: number | null
+          status?: string
+          token?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payfast_subscriptions_first_invoice_id_fkey"
+            columns: ["first_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       plan_barriers: {
         Row: {
