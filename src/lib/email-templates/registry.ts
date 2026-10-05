@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import { DemoRequestEmail } from './demo-request'
+import { ActionReminderEmail } from './action-reminder'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -33,6 +34,14 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
       message: 'We need help with our EEA2 submission.',
     },
     // Fixed recipient: internal demo-request alerts.
+    to: 'sdm@ddhs.co.za',
+  },
+  'action-reminder': {
+    component: ActionReminderEmail,
+    subject: (data) => `${(data['items'] ?? []).length} EE committee action(s) due or overdue`,
+    displayName: 'Committee action reminder',
+    previewData: { items: [{ title: 'Finalise barriers analysis', due_date: '2026-10-07', status: 'In progress', owner: 'HR Manager', overdue: false }] },
+    // Fixed recipient: internal reminders.
     to: 'sdm@ddhs.co.za',
   },
 }

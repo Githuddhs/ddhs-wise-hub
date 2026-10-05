@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as TargetsRouteImport } from './routes/targets'
 import { Route as AuthenticatedAssessRouteImport } from './routes/_authenticated/assess'
+import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedCommitteeRouteImport } from './routes/_authenticated/committee'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDocumentRouteImport } from './routes/_authenticated/document'
@@ -25,6 +26,7 @@ import { Route as ApiDemoRequestRouteImport } from './routes/api/demo-request'
 import { Route as ApiPlanRouteImport } from './routes/api/plan'
 import { Route as ApiProgressRouteImport } from './routes/api/progress'
 import { Route as ApiReviewRouteImport } from './routes/api/review'
+import { Route as ApiPublicActionRemindersRouteImport } from './routes/api/public/action-reminders'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
@@ -49,6 +51,11 @@ const TargetsRoute = TargetsRouteImport.update({
 const AuthenticatedAssessRoute = AuthenticatedAssessRouteImport.update({
   id: '/assess',
   path: '/assess',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCommitteeRoute = AuthenticatedCommitteeRouteImport.update({
@@ -106,6 +113,12 @@ const ApiReviewRoute = ApiReviewRouteImport.update({
   path: '/api/review',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicActionRemindersRoute =
+  ApiPublicActionRemindersRouteImport.update({
+    id: '/api/public/action-reminders',
+    path: '/api/public/action-reminders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -118,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/assess': typeof AuthenticatedAssessRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
@@ -129,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
+  '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
@@ -136,6 +151,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/assess': typeof AuthenticatedAssessRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/committee': typeof AuthenticatedCommitteeRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/document': typeof AuthenticatedDocumentRoute
@@ -147,6 +163,7 @@ export interface FileRoutesByTo {
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
+  '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
@@ -156,6 +173,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/targets': typeof TargetsRoute
   '/_authenticated/assess': typeof AuthenticatedAssessRoute
+  '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/committee': typeof AuthenticatedCommitteeRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/document': typeof AuthenticatedDocumentRoute
@@ -167,6 +185,7 @@ export interface FileRoutesById {
   '/api/plan': typeof ApiPlanRoute
   '/api/progress': typeof ApiProgressRoute
   '/api/review': typeof ApiReviewRoute
+  '/api/public/action-reminders': typeof ApiPublicActionRemindersRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
@@ -176,6 +195,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/assess'
+    | '/calendar'
     | '/committee'
     | '/dashboard'
     | '/document'
@@ -187,6 +207,7 @@ export interface FileRouteTypes {
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
+    | '/api/public/action-reminders'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -194,6 +215,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/assess'
+    | '/calendar'
     | '/committee'
     | '/dashboard'
     | '/document'
@@ -205,6 +227,7 @@ export interface FileRouteTypes {
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
+    | '/api/public/action-reminders'
     | '/lovable/email/transactional/preview'
   id:
     | '__root__'
@@ -213,6 +236,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/targets'
     | '/_authenticated/assess'
+    | '/_authenticated/calendar'
     | '/_authenticated/committee'
     | '/_authenticated/dashboard'
     | '/_authenticated/document'
@@ -224,6 +248,7 @@ export interface FileRouteTypes {
     | '/api/plan'
     | '/api/progress'
     | '/api/review'
+    | '/api/public/action-reminders'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
@@ -237,6 +262,7 @@ export interface RootRouteChildren {
   ApiPlanRoute: typeof ApiPlanRoute
   ApiProgressRoute: typeof ApiProgressRoute
   ApiReviewRoute: typeof ApiReviewRoute
+  ApiPublicActionRemindersRoute: typeof ApiPublicActionRemindersRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
@@ -275,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/assess'
       fullPath: '/assess'
       preLoaderRoute: typeof AuthenticatedAssessRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/calendar': {
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/committee': {
@@ -354,6 +387,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/action-reminders': {
+      id: '/api/public/action-reminders'
+      path: '/api/public/action-reminders'
+      fullPath: '/api/public/action-reminders'
+      preLoaderRoute: typeof ApiPublicActionRemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -366,6 +406,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAssessRoute: typeof AuthenticatedAssessRoute
+  AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedCommitteeRoute: typeof AuthenticatedCommitteeRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDocumentRoute: typeof AuthenticatedDocumentRoute
@@ -376,6 +417,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAssessRoute: AuthenticatedAssessRoute,
+  AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedCommitteeRoute: AuthenticatedCommitteeRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDocumentRoute: AuthenticatedDocumentRoute,
@@ -397,6 +439,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlanRoute: ApiPlanRoute,
   ApiProgressRoute: ApiProgressRoute,
   ApiReviewRoute: ApiReviewRoute,
+  ApiPublicActionRemindersRoute: ApiPublicActionRemindersRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport

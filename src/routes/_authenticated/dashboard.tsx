@@ -183,7 +183,7 @@ function Dashboard() {
           </section>
 
           <section className={card} aria-label="Compliance calendar">
-            <p className={mono}>Compliance calendar</p>
+            <div className="flex items-center justify-between"><p className={mono}>Compliance calendar</p><Link to="/calendar" className="text-[13px] text-primary hover:underline">Open calendar →</Link></div>
             <ul className="mt-4 space-y-2 text-[14px]">
               {calendar.slice(0, 8).map((c) => { const d = daysTo(c.due_date); return (
                 <li key={c.id} className="flex items-center justify-between gap-3 border-b border-line/40 pb-2">

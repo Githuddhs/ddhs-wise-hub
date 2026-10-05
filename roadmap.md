@@ -13,3 +13,5 @@
 
 - [ ] Verify ddhs.co.za + set Primary — blocked: domain not yet added in Project Settings → Domains; _lovable TXT records pending
 - [x] Equity Intelligence dashboard
+- [x] Compliance calendar + daily action reminders
+- [ ] Daily reminders run on the published site — publish needed

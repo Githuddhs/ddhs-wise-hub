@@ -21,6 +21,7 @@ export type Database = {
           id: string
           meeting_id: string | null
           member_id: string | null
+          reminded_on: string | null
           status: string
           title: string
           user_id: string
@@ -31,6 +32,7 @@ export type Database = {
           id?: string
           meeting_id?: string | null
           member_id?: string | null
+          reminded_on?: string | null
           status?: string
           title: string
           user_id?: string
@@ -41,6 +43,7 @@ export type Database = {
           id?: string
           meeting_id?: string | null
           member_id?: string | null
+          reminded_on?: string | null
           status?: string
           title?: string
           user_id?: string
@@ -140,6 +143,21 @@ export type Database = {
           id?: string
           title?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      cron_tokens: {
+        Row: {
+          name: string
+          token: string
+        }
+        Insert: {
+          name: string
+          token?: string
+        }
+        Update: {
+          name?: string
+          token?: string
         }
         Relationships: []
       }
