@@ -2,6 +2,7 @@ import type { ComponentType } from 'react'
 import { DemoRequestEmail } from './demo-request'
 import { ActionReminderEmail } from './action-reminder'
 import { ClientWelcomeEmail } from './client-welcome'
+import { InvoiceEmail } from './invoice'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -57,5 +58,30 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
       site_url: 'https://ddhs-wise-hub.lovable.app',
     },
     // No fixed recipient: this goes to the client's own address.
+  },
+  'invoice': {
+    component: InvoiceEmail,
+    subject: (data) => `Invoice ${data['invoice_number']} — ${data['company'] || 'DDHS'}`,
+    displayName: 'Invoice for EFT payment',
+    previewData: {
+      contact_name: 'Thandi Nkosi',
+      company: 'Example Manufacturing (Pty) Ltd',
+      invoice_number: 'DDHS-2026-0001',
+      issue_date: '2026-10-01',
+      due_date: '2026-10-15',
+      description: 'Equity Intelligence platform — monthly subscription',
+      period_label: 'October 2026',
+      subtotal: 'R 4500.00',
+      vat_line: 'VAT at 15%',
+      vat_amount: 'R 675.00',
+      total: 'R 5175.00',
+      bank_name: 'First National Bank',
+      account_name: 'DDHS Equity Intelligence',
+      account_number: '00000000000',
+      branch_code: '000000',
+      reference: 'DDHS-2026-0001',
+      vat_number: '4000000000',
+    },
+    // No fixed recipient: this goes to the client's billing address.
   },
 }

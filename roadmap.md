@@ -23,3 +23,6 @@
 - [x] Client onboarding: staff register, create login + email handover, open client account
 - [x] DG review: pre-submission check of the EEA2/EEA4/EEA12/EEA13 pack
 - [ ] Clarify user's "@" message — waiting on user
+- [x] Billing: raise invoice, banking details, email + PDF, record EFT payment
+- [ ] Suggest subscription fees — pricing tiers for the platform
+- [ ] Clean up the invoice test client + test invoice rows

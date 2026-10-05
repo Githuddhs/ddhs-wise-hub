@@ -28,6 +28,10 @@ export type ClientSummary = {
   measures: number | null;
   evidence: number | null;
   actions: number | null;
+  monthly_fee: number | null;
+  annual_fee: number | null;
+  billing_email: string;
+  vat_ref: string;
 };
 
 export const getMyRole = createServerFn({ method: "GET" })
@@ -50,9 +54,9 @@ export const listClients = createServerFn({ method: "GET" })
     if (prof.error) throw new Error(prof.error.message);
 
     const rows: ClientSummary[] = [];
-    const blank = { employees: null, measures: null, evidence: null, actions: null };
+    const blank = { employees: null, measures: null, evidence: null, actions: null, monthly_fee: null, annual_fee: null, billing_email: "", vat_ref: "" };
     for (const c of reg.data ?? []) {
-      rows.push({ ...blank, user_id: c.user_id, email: c.email, company: c.company, contact_name: c.contact_name, note: c.note, status: c.status, created_at: c.created_at, registered: true });
+      rows.push({ ...blank, user_id: c.user_id, email: c.email, company: c.company, contact_name: c.contact_name, note: c.note, status: c.status, created_at: c.created_at, registered: true, monthly_fee: c.monthly_fee === null ? null : Number(c.monthly_fee), annual_fee: c.annual_fee === null ? null : Number(c.annual_fee), billing_email: c.billing_email, vat_ref: c.vat_ref });
     }
     const known = new Set(rows.map((r) => r.user_id));
     for (const p of prof.data ?? []) {

@@ -44,39 +44,90 @@ export type Database = {
         }
         Relationships: []
       }
+      billing_settings: {
+        Row: {
+          account_name: string
+          account_number: string
+          bank_name: string
+          branch_code: string
+          due_days: number
+          id: number
+          payfast_link: string
+          updated_at: string
+          vat_mode: string
+          vat_number: string
+        }
+        Insert: {
+          account_name?: string
+          account_number?: string
+          bank_name?: string
+          branch_code?: string
+          due_days?: number
+          id: number
+          payfast_link?: string
+          updated_at?: string
+          vat_mode?: string
+          vat_number?: string
+        }
+        Update: {
+          account_name?: string
+          account_number?: string
+          bank_name?: string
+          branch_code?: string
+          due_days?: number
+          id?: number
+          payfast_link?: string
+          updated_at?: string
+          vat_mode?: string
+          vat_number?: string
+        }
+        Relationships: []
+      }
       client_accounts: {
         Row: {
+          annual_fee: number | null
+          billing_email: string
           company: string
           contact_name: string
           created_at: string
           created_by: string | null
           email: string
+          monthly_fee: number | null
           note: string
           status: string
           updated_at: string
           user_id: string
+          vat_ref: string
         }
         Insert: {
+          annual_fee?: number | null
+          billing_email?: string
           company?: string
           contact_name?: string
           created_at?: string
           created_by?: string | null
           email?: string
+          monthly_fee?: number | null
           note?: string
           status?: string
           updated_at?: string
           user_id: string
+          vat_ref?: string
         }
         Update: {
+          annual_fee?: number | null
+          billing_email?: string
           company?: string
           contact_name?: string
           created_at?: string
           created_by?: string | null
           email?: string
+          monthly_fee?: number | null
           note?: string
           status?: string
           updated_at?: string
           user_id?: string
+          vat_ref?: string
         }
         Relationships: []
       }
@@ -509,6 +560,87 @@ export type Database = {
         }
         Relationships: []
       }
+      invoice_counter: {
+        Row: {
+          last: number
+          yr: number
+        }
+        Insert: {
+          last?: number
+          yr: number
+        }
+        Update: {
+          last?: number
+          yr?: number
+        }
+        Relationships: []
+      }
+      invoices: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          description: string
+          due_date: string
+          emailed_at: string | null
+          id: string
+          issue_date: string
+          note: string
+          number: string
+          paid_method: string
+          paid_on: string | null
+          period_label: string
+          status: string
+          total: number
+          updated_at: string
+          user_id: string
+          vat_amount: number
+          vat_rate: number
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          due_date: string
+          emailed_at?: string | null
+          id?: string
+          issue_date?: string
+          note?: string
+          number: string
+          paid_method?: string
+          paid_on?: string | null
+          period_label?: string
+          status?: string
+          total?: number
+          updated_at?: string
+          user_id: string
+          vat_amount?: number
+          vat_rate?: number
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          due_date?: string
+          emailed_at?: string | null
+          id?: string
+          issue_date?: string
+          note?: string
+          number?: string
+          paid_method?: string
+          paid_on?: string | null
+          period_label?: string
+          status?: string
+          total?: number
+          updated_at?: string
+          user_id?: string
+          vat_amount?: number
+          vat_rate?: number
+        }
+        Relationships: []
+      }
       plan_barriers: {
         Row: {
           affected_groups: string | null
@@ -806,6 +938,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      next_invoice_number: { Args: { _prefix: string }; Returns: string }
     }
     Enums: {
       app_role: "admin"
