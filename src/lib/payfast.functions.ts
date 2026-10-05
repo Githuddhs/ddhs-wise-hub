@@ -73,6 +73,5 @@ export const startPayfastCheckout = createServerFn({ method: "POST" })
     ];
     const post = fields.filter(([, v]) => v !== "");
     post.push(["signature", signFields(post, cfg.passphrase)]);
-    await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" }); // keeps session warm; no-op
     return { action: `https://${cfg.host}/eng/process`, fields: post, sandbox: !cfg.live };
   });
