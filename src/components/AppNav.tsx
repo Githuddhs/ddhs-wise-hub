@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useIsStaff } from "@/hooks/use-is-staff";
 
 const GROUPS = [
   ["Data", [["/workforce", "Workforce data"], ["/analysis", "EEA12 analysis"]]],
@@ -9,6 +10,7 @@ const GROUPS = [
 
 /** Grouped navigation shown at the top of every signed-in workspace page. */
 export function AppNav() {
+  const { isStaff } = useIsStaff();
   return (
     <nav aria-label="Workspace" className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-line/50 pb-4 text-[13px]">
       <Link to="/" className="font-[Fraunces] text-[17px] font-semibold">DDHS</Link>
@@ -21,6 +23,12 @@ export function AppNav() {
           ))}
         </span>
       ))}
+      {isStaff && (
+        <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className="font-[JetBrains_Mono] text-[10px] uppercase tracking-wider text-muted/70">DDHS</span>
+          <Link to="/clients" className="text-muted hover:text-foreground" activeProps={{ className: "text-foreground font-medium" }}>Clients</Link>
+        </span>
+      )}
     </nav>
   );
 }

@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import { DemoRequestEmail } from './demo-request'
 import { ActionReminderEmail } from './action-reminder'
+import { ClientWelcomeEmail } from './client-welcome'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -43,5 +44,18 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
     previewData: { items: [{ title: 'Finalise barriers analysis', due_date: '2026-10-07', status: 'In progress', owner: 'HR Manager', overdue: false }] },
     // Fixed recipient: internal reminders.
     to: 'sdm@ddhs.co.za',
+  },
+  'client-welcome': {
+    component: ClientWelcomeEmail,
+    subject: (data) => `Your ${data['company'] || 'DDHS'} workspace is ready`,
+    displayName: 'Client login details',
+    previewData: {
+      contact_name: 'Thandi Nkosi',
+      company: 'Example Manufacturing (Pty) Ltd',
+      login_email: 'thandi@example.co.za',
+      password: 'Kf7mQp2xRt9wLn4b',
+      site_url: 'https://ddhs-wise-hub.lovable.app',
+    },
+    // No fixed recipient: this goes to the client's own address.
   },
 }
