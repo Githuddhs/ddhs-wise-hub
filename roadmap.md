@@ -27,3 +27,4 @@
 - [x] Suggest subscription fees — tiers proposed (R1 450 / R2 950 / R4 950 monthly, ex VAT)
 - [x] Clean up the invoice test client + test invoice rows
 - [ ] Load suggested fees as register defaults + put the price list on the site — waiting on user's choice of tiers
+- [x] PayFast monthly checkout + payment notification. Open: real PayFast merchant ID/key/passphrase from user.
