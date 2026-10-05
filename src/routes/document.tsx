@@ -21,7 +21,7 @@ const field = "w-full rounded-lg border border-line/70 bg-glass/60 px-3 py-2 tex
 const label = "mb-1.5 block font-[JetBrains_Mono] text-[10px] uppercase tracking-[0.16em] text-muted";
 const emptyGoals = (): Goal[] => LEVELS.map(() => ({ current: "", target: "", disability: "" }));
 
-function Ph({ v, l }: { v?: string; l: string }) {
+function Ph({ v, l }: { v?: string | undefined; l: string }) {
   return v?.trim() ? <span className="whitespace-pre-line">{v}</span> : <mark className="rounded bg-accent/20 px-1 text-foreground">[{l}]</mark>;
 }
 
@@ -116,7 +116,7 @@ function DocumentPage() {
             </div>
             <article className="mt-5 space-y-4 rounded-xl border border-line/60 bg-background p-6 text-[13px] leading-relaxed">
               <h2 className="font-[Fraunces] text-[24px] text-primary">Employment Equity Plan</h2>
-              <p className="text-[15px]"><Ph v={v.employer} l="Registered employer name" /></p>
+              <p className="text-[15px]"><Ph v={v["employer"]} l="Registered employer name" /></p>
               <p className="italic text-muted">Prepared in terms of section 20 of the Employment Equity Act 55 of 1998, as amended</p>
               {SECTIONS.map((s, i) => (
                 <div key={s.title}>

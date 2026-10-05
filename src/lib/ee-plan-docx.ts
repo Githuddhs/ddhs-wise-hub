@@ -16,13 +16,13 @@ export async function exportEePlanDocx(v: Record<string, string>, goals: Goal[])
 
   const cell = (text: string, head = false) =>
     new TableCell({
-      shading: head ? { type: ShadingType.CLEAR, color: "auto", fill: BLUE } : undefined,
-      children: [new Paragraph({ children: [new TextRun({ text, bold: head, color: head ? "FFFFFF" : undefined, size: 18 })] })],
+      ...(head ? { shading: { type: ShadingType.CLEAR, color: "auto", fill: BLUE } } : {}),
+      children: [new Paragraph({ children: [new TextRun({ text, bold: head, ...(head ? { color: "FFFFFF" } : {}), size: 18 })] })],
     });
 
   const body: (InstanceType<typeof Paragraph> | InstanceType<typeof Table>)[] = [
     new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: "EMPLOYMENT EQUITY PLAN", bold: true, size: 40, color: BLUE, font: "Georgia" })] }),
-    new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: v.employer?.trim() || "[Registered employer name]", size: 28, highlight: v.employer?.trim() ? undefined : "yellow" })] }),
+    new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: v["employer"]?.trim() || "[Registered employer name]", size: 28, ...(v["employer"]?.trim() ? {} : { highlight: "yellow" as const }) })] }),
     new Paragraph({ spacing: { after: 360 }, children: [new TextRun({ text: "Prepared in terms of section 20 of the Employment Equity Act 55 of 1998, as amended", italics: true, color: MUTE, size: 20 })] }),
   ];
 
@@ -63,7 +63,7 @@ export async function exportEePlanDocx(v: Record<string, string>, goals: Goal[])
   const blob = await Packer.toBlob(doc);
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `EE-Plan-${(v.employer || "draft").replace(/[^\w-]+/g, "-")}.docx`;
+  a.download = `EE-Plan-${(v["employer"] || "draft").replace(/[^\w-]+/g, "-")}.docx`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 }
