@@ -1,3 +1,4 @@
+import { fetchAllEmployees } from "@/lib/employees";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -48,7 +49,7 @@ function PlanPage() {
   const goals = useQuery(q<G>("plan_goals", "year"));
   const objectives = useQuery(q<O>("plan_objectives", "year"));
   const measures = useQuery(q<M>("plan_measures", "due_date"));
-  const emps = useQuery({ queryKey: ["employees"], queryFn: () => must(supabase.from("employees").select("*").limit(10000)) as Promise<Employee[]> });
+  const emps = useQuery({ queryKey: ["employees"], queryFn: () => fetchAllEmployees<Employee>() });
   const wf = useQuery({ queryKey: ["wf"], queryFn: () => must(supabase.from("workforce_profiles").select("*").maybeSingle()) as Promise<{ sector: string | null } | null> });
   const inv = (t: string) => qc.invalidateQueries({ queryKey: [t] });
 

@@ -1,3 +1,4 @@
+import { fetchAllEmployees } from "@/lib/employees";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
@@ -28,7 +29,7 @@ function WorkforcePage() {
   const qc = useQueryClient();
   const [err, setErr] = useState("");
   const [msg, setMsg] = useState("");
-  const emps = useQuery({ queryKey: ["employees"], queryFn: () => must(supabase.from("employees").select("*").order("employee_no").limit(10000)) as Promise<Row[]> });
+  const emps = useQuery({ queryKey: ["employees"], queryFn: () => fetchAllEmployees<Row>() });
   const batches = useQuery({ queryKey: ["import-batches"], queryFn: () => must(supabase.from("import_batches").select("*").order("created_at", { ascending: false }).limit(5)) });
   const refresh = () => { qc.invalidateQueries({ queryKey: ["employees"] }); qc.invalidateQueries({ queryKey: ["import-batches"] }); };
 
