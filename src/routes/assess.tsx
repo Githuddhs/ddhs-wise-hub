@@ -159,6 +159,9 @@ function AssessPage() {
                 <ReactMarkdown>{out}</ReactMarkdown>
               </div>
             )}
+            {out && !busy && (
+              <Link to="/plan" onClick={() => sessionStorage.setItem("ddhs-assessment", out)} className="mt-6 inline-block rounded-full bg-primary px-5 py-2.5 text-[13px] font-medium text-primary-foreground">Build implementation plan →</Link>
+            )}
             <p className="mt-6 border-t border-line/60 pt-3 text-[11px] text-muted">Guidance only — not legal advice.</p>
           </section>
         </div>
