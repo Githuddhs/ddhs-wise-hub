@@ -1,16 +1,5 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
-
 # Agent rules
-- AI calls go through streaming server routes under src/routes/api/ on the Lovable AI Gateway Responses API; keeps the key server-side and streams NDJSON to the page.
+- AI calls go through streaming server routes under src/routes/api/ using the OpenAI Responses API (OPENAI_API_KEY); keeps the key server-side and streams NDJSON to the page.
 - Each AI tool (assess, plan, progress, review, dg-review) has its own streaming route under src/routes/api/ sharing the same gateway pattern; keeps prompts isolated.
 - Finished AI results auto-save per user to saved_results (owner-only RLS); the dashboard reads workforce_profiles, committee tables, compliance_deadlines and saved_results.
 - Demo requests are stored in a Cloud table with insert-only public access; nobody can read submissions from the browser.

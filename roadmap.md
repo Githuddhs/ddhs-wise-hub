@@ -11,7 +11,7 @@
 - [x] Sign up / sign in (email + Google, profiles, tools gated)
 - [x] EE committee page (members, meetings, actions, progress)
 
-- [ ] Verify ddhs.co.za + set Primary — blocked: domain not yet added in Project Settings → Domains; _lovable TXT records pending
+- [ ] Point ddhs.co.za DNS at the self-hosted server and configure TLS (e.g. Caddy/nginx + Let's Encrypt)
 - [x] Equity Intelligence dashboard
 - [x] Compliance calendar + daily action reminders
 - [x] Daily reminders run on the published site
